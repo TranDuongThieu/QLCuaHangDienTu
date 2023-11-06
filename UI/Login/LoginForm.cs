@@ -1,9 +1,4 @@
-﻿using CuaHangDienTu.UI.Admin;
-using CuaHangDienTu.UI.Main;
-using Microsoft.Data.SqlClient;
-using System.Data;
-
-namespace CuaHangDienTu
+﻿namespace CuaHangDienTu
 {
     public partial class LoginForm : Form
     {
