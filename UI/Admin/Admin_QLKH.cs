@@ -1,18 +1,7 @@
 
 using CuaHangDienTu.UI.ChildForm;
 using Microsoft.Data.SqlClient;
-using System;
-
-using System;
-
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CuaHangDienTu.UI.Admin
 {
@@ -25,7 +14,7 @@ namespace CuaHangDienTu.UI.Admin
         string id, hoten, sodienthoai;
         int diem;
 
-        string sqlConnectionString = "Data Source=LAPTOP-6280OKSE\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
+        string sqlConnectionString = Properties.Settings.Default.connectionString;
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();

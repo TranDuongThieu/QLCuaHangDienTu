@@ -1,6 +1,5 @@
 ﻿using CuaHangDienTu.UI.Admin;
 using CuaHangDienTu.UI.Main;
-using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -14,7 +13,7 @@ namespace CuaHangDienTu
             InitializeComponent();
 
         }
-        string sqlConnectionString = "Data Source=localhost, 1433\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
+        string sqlConnectionString = Properties.Settings.Default.connectionString;
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
@@ -34,47 +33,61 @@ namespace CuaHangDienTu
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            string username = usernameTextBox.Text.ToString();
-            string password = passwordTextBox.Text.ToString();
-            if (username == "admin")
+            string username = usernameTextBox.Text;
+            string password = passwordTextBox.Text;
+            using (SqlConnection con = new SqlConnection(sqlConnectionString))
             {
-                if (password == "admin")
+                using (SqlCommand cmd = new SqlCommand("spUserLogin", con))
                 {
-                    AdminForm adminform = new AdminForm();
-                    adminform.Show();
-                    this.Hide();
-                }
-                else MessageBox.Show("Sai mật khẩu");
-            }
-            else
-            {
-                using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
-                {
-                    con1.Open();
-                    SqlCommand cmd = new SqlCommand("Select * from ACCOUNT where username = @username", con1);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@username", username));
+                    cmd.Parameters.Add(new SqlParameter("@password", password));
 
-                    cmd.CommandType = CommandType.Text;
-
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters["@username"].Direction = ParameterDirection.Input;
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    try
                     {
-                        string storedPassword = reader["password"].ToString();
-                        MessageBox.Show(storedPassword == password ? "true" : "false");
-                        if (storedPassword == password)
+                        con.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            MainForm mainform = new MainForm();
-                            mainform.Show();
-                            this.Hide();
-                        }
-                        else MessageBox.Show("Sai mật khẩu");
-                    }
-                    else MessageBox.Show("Tài khoản không tồn tại");
+                            if (reader.HasRows)
+                            {
+                                reader.Read();
+                                int resultCode = Convert.ToInt32(reader["ResultCode"]);
+                                string resultMessage = reader["ResultMessage"].ToString();
 
+                                if (resultCode == 0)
+                                {
+                                    // Login successful
+                                    MessageBox.Show(resultMessage);
+                                    // Open the appropriate form for the user
+                                    if (username == "admin")
+                                    {
+                                        AdminForm adminForm = new AdminForm();
+                                        adminForm.Show();
+                                    }
+                                    else
+                                    {
+                                        MainForm mainForm = new MainForm();
+                                        mainForm.Show();
+                                    }
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show(resultMessage);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Tài khoản không tồn tại");
+                            }
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message);
+                    }
                 }
             }
-
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
