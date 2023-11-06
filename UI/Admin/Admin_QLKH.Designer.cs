@@ -29,24 +29,14 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-<<<<<<< Updated upstream
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-=======
->>>>>>> Stashed changes
             MaKH = new DataGridViewTextBoxColumn();
             tenKH = new DataGridViewTextBoxColumn();
             sdt = new DataGridViewTextBoxColumn();
             diemThanhVien = new DataGridViewTextBoxColumn();
-<<<<<<< Updated upstream
-=======
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
->>>>>>> Stashed changes
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -62,33 +52,6 @@
             dataGridView1.Size = new Size(1276, 460);
             dataGridView1.TabIndex = 0;
             // 
-<<<<<<< Updated upstream
-=======
-            // MaKH
-            // 
-            MaKH.HeaderText = "Mã Khách Hàng";
-            MaKH.MinimumWidth = 8;
-            MaKH.Name = "MaKH";
-            // 
-            // tenKH
-            // 
-            tenKH.HeaderText = "Họ Tên Khách Hàng";
-            tenKH.MinimumWidth = 8;
-            tenKH.Name = "tenKH";
-            // 
-            // sdt
-            // 
-            sdt.HeaderText = "Số Điện Thoại";
-            sdt.MinimumWidth = 8;
-            sdt.Name = "sdt";
-            // 
-            // diemThanhVien
-            // 
-            diemThanhVien.HeaderText = "Điểm Thành Viên";
-            diemThanhVien.MinimumWidth = 8;
-            diemThanhVien.Name = "diemThanhVien";
-            // 
->>>>>>> Stashed changes
             // button1
             // 
             button1.Location = new Point(57, 154);
@@ -126,7 +89,6 @@
             guna2HtmlLabel1.TabIndex = 4;
             guna2HtmlLabel1.Text = "Quản lý khách hàng";
             // 
-<<<<<<< Updated upstream
             // MaKH
             // 
             MaKH.DataPropertyName = "MaKH";
@@ -155,8 +117,6 @@
             diemThanhVien.MinimumWidth = 8;
             diemThanhVien.Name = "diemThanhVien";
             // 
-=======
->>>>>>> Stashed changes
             // Admin_QLKH
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -177,23 +137,13 @@
         #endregion
 
         private DataGridView dataGridView1;
-<<<<<<< Updated upstream
         private Button button1;
         private Button button2;
         private Button button3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-=======
->>>>>>> Stashed changes
         private DataGridViewTextBoxColumn MaKH;
         private DataGridViewTextBoxColumn tenKH;
         private DataGridViewTextBoxColumn sdt;
         private DataGridViewTextBoxColumn diemThanhVien;
-<<<<<<< Updated upstream
-=======
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
->>>>>>> Stashed changes
     }
 }

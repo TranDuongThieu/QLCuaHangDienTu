@@ -1,9 +1,9 @@
-<<<<<<< Updated upstream
-﻿using Microsoft.Data.SqlClient;
+
+using Microsoft.Data.SqlClient;
 using System;
-=======
-﻿using System;
->>>>>>> Stashed changes
+
+using System;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +21,7 @@ namespace CuaHangDienTu.UI.Admin
         {
             InitializeComponent();
         }
-<<<<<<< Updated upstream
+
         string sqlConnectionString = "Data Source=LAPTOP-6280OKSE\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
@@ -39,12 +39,9 @@ namespace CuaHangDienTu.UI.Admin
                 con1.Close();
                 dataGridView1.DataSource = dt;
             }
-=======
 
-        private void Admin_QLKH_Load(object sender, EventArgs e)
-        {
-            
->>>>>>> Stashed changes
+
+
         }
     }
 }
