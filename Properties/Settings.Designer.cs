@@ -26,7 +26,7 @@ namespace CuaHangDienTu.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost, 1433;Initial Catalog=CuaHangDienTu;TrustServerCertificate=" +
-            "True;User Id=sa;Password=sqlserverdeveloper")]
+            "True;User Id=cuahangdientu;Password=cuahangdientu")]
         public string connectionString {
             get {
                 return ((string)(this["connectionString"]));

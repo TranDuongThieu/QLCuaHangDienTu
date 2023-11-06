@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="connectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data Source=localhost, 1433;Initial Catalog=CuaHangDienTu;TrustServerCertificate=True;User Id=sa;Password=sqlserverdeveloper</Value>
+      <Value Profile="(Default)">Data Source=localhost, 1433;Initial Catalog=CuaHangDienTu;TrustServerCertificate=True;User Id=cuahangdientu;Password=cuahangdientu</Value>
     </Setting>
   </Settings>
 </SettingsFile>
