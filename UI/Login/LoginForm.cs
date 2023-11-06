@@ -1,6 +1,5 @@
 ﻿using CuaHangDienTu.UI.Admin;
 using CuaHangDienTu.UI.Main;
-using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -14,7 +13,7 @@ namespace CuaHangDienTu
             InitializeComponent();
 
         }
-        string sqlConnectionString = "Data Source=LAPTOP-6280OKSE\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
+        string sqlConnectionString = "Data Source=localhost, 1433;Initial Catalog=CuaHangDienTu;TrustServerCertificate=True";
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
