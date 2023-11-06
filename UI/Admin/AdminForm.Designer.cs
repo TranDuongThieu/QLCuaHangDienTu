@@ -97,7 +97,7 @@
             guna2TabControl1.Controls.Add(tabPage3);
             guna2TabControl1.Controls.Add(tabPage4);
             guna2TabControl1.ItemSize = new Size(180, 40);
-            guna2TabControl1.Location = new Point(0, 55);
+            guna2TabControl1.Location = new Point(0, 52);
             guna2TabControl1.Name = "guna2TabControl1";
             guna2TabControl1.SelectedIndex = 0;
             guna2TabControl1.Size = new Size(1525, 727);
@@ -138,7 +138,7 @@
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
             tabPage2.RightToLeft = RightToLeft.Yes;
-            tabPage2.Size = new Size(1337, 677);
+            tabPage2.Size = new Size(1337, 719);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Sản phẩm";
             tabPage2.UseVisualStyleBackColor = true;
@@ -147,7 +147,7 @@
             // 
             tabPage3.Location = new Point(184, 4);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(1337, 677);
+            tabPage3.Size = new Size(1337, 719);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Đơn nhập hàng";
             tabPage3.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             // 
             tabPage4.Location = new Point(184, 4);
             tabPage4.Name = "tabPage4";
-            tabPage4.Size = new Size(1337, 677);
+            tabPage4.Size = new Size(1337, 719);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Hóa đơn";
             tabPage4.UseVisualStyleBackColor = true;
