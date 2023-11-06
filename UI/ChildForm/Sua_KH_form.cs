@@ -26,7 +26,7 @@ namespace CuaHangDienTu.UI.ChildForm
             this.sdt = Sdt;
             this.diem = Diem;
         }
-        string sqlConnectionString = "Data Source=LAPTOP-6280OKSE\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
+        string sqlConnectionString = Properties.Settings.Default.connectionString;
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
@@ -51,12 +51,12 @@ namespace CuaHangDienTu.UI.ChildForm
                 try
                 {
                     con1.Open();
-                    using (SqlCommand cmd = new SqlCommand("updateKH", con1))
+                    using (SqlCommand cmd = new SqlCommand("spCapNhatKH", con1))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@MaKH", SqlDbType.NChar, 10)).Value = id;
+                        cmd.Parameters.Add(new SqlParameter("@MaKH", SqlDbType.VarChar, 10)).Value = id;
                         cmd.Parameters.Add(new SqlParameter("@HoTenKH", SqlDbType.NVarChar, 255)).Value = guna2TextBox1.Text;
-                        cmd.Parameters.Add(new SqlParameter("@SoDienThoai", SqlDbType.NChar, 10)).Value = guna2TextBox2.Text;
+                        cmd.Parameters.Add(new SqlParameter("@SoDienThoai", SqlDbType.VarChar, 10)).Value = guna2TextBox2.Text;
                         cmd.Parameters.Add(new SqlParameter("@DiemThanhVien", SqlDbType.Int)).Value = Int32.Parse(guna2TextBox3.Text);
                         cmd.ExecuteNonQuery();
                         //Admin_QLKH.
