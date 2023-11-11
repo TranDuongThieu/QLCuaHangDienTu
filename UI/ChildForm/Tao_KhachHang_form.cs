@@ -26,7 +26,7 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             InitializeComponent();
         }
-        string sqlConnectionString = "Data Source=LAPTOP-6280OKSE\\SQLEXPRESS;Initial Catalog=CuaHangDienTu;Integrated Security=True ;TrustServerCertificate=true";
+        string sqlConnectionString = Properties.Settings.Default.connectionString;
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
@@ -49,12 +49,12 @@ namespace CuaHangDienTu.UI.ChildForm
                 try
                 {
                     con1.Open();
-                    using (SqlCommand cmd = new SqlCommand("insertKH", con1))
+                    using (SqlCommand cmd = new SqlCommand("spThemKH", con1))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@MaKH", SqlDbType.NChar, 10)).Value = id;
+                        cmd.Parameters.Add(new SqlParameter("@MaKH", SqlDbType.VarChar, 10)).Value = id;
                         cmd.Parameters.Add(new SqlParameter("@HoTenKH", SqlDbType.NVarChar, 255)).Value = hotenKH;
-                        cmd.Parameters.Add(new SqlParameter("@SoDienThoai", SqlDbType.NChar, 10)).Value = sodienthoai;
+                        cmd.Parameters.Add(new SqlParameter("@SoDienThoai", SqlDbType.VarChar, 10)).Value = sodienthoai;
                         cmd.ExecuteNonQuery();
                         //Admin_QLKH.
                         // If the execution didn't throw an exception, it was successful.
