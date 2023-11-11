@@ -34,19 +34,21 @@
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Location = new Point(170, 156);
+            guna2HtmlLabel1.Location = new Point(119, 94);
+            guna2HtmlLabel1.Margin = new Padding(2, 2, 2, 2);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(65, 27);
+            guna2HtmlLabel1.Size = new Size(44, 17);
             guna2HtmlLabel1.TabIndex = 0;
             guna2HtmlLabel1.Text = "Ql DNH";
             // 
             // Admin_QLDNH
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(guna2HtmlLabel1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "Admin_QLDNH";
-            Size = new Size(658, 526);
+            Size = new Size(461, 316);
             ResumeLayout(false);
             PerformLayout();
         }
