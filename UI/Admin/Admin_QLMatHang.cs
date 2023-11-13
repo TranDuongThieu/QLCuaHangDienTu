@@ -12,12 +12,13 @@ using System.Windows.Forms;
 
 namespace CuaHangDienTu.UI.Admin
 {
-    public partial class Admin_QLSP : UserControl
+    public partial class Admin_QLMatHang : UserControl
     {
-        public Admin_QLSP()
+        public Admin_QLMatHang()
         {
             InitializeComponent();
         }
+
         string sqlConnectionString = Properties.Settings.Default.connectionString;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -35,19 +36,46 @@ namespace CuaHangDienTu.UI.Admin
                 con1.Close();
                 table_SP.DataSource = dt;
 
-
             }
 
         }
-        private void Admin_QLSP_Load(object sender, EventArgs e)
-        {
-            load_Table();
-        }
+
         public Image Chuyen(byte[] imageData)
         {
             MemoryStream ms = new MemoryStream(imageData);
             Image returnIMG = Image.FromStream(ms);
             return returnIMG;
+        }
+
+
+
+        private void btn_Xoa_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            {
+                string id = table_SP.CurrentRow.Cells[0].Value.ToString();
+                SqlCommand cmd = new SqlCommand("", con1);
+                cmd.CommandType = CommandType.Text;
+                con1.Open();
+
+
+            }
+        }
+
+
+
+
+
+
+
+        private void filename_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Admin_QLMatHang_Load(object sender, EventArgs e)
+        {
+            load_Table();
         }
 
         private void table_SP_SelectionChanged(object sender, EventArgs e)
@@ -79,37 +107,6 @@ namespace CuaHangDienTu.UI.Admin
             {
                 // Handle other exceptions if necessary
                 MessageBox.Show("Error: " + ex.Message);
-            }
-        }
-
-        private void btn_Xoa_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
-            {
-                string id = table_SP.CurrentRow.Cells[0].Value.ToString();
-                SqlCommand cmd = new SqlCommand("", con1);
-                cmd.CommandType = CommandType.Text;
-                con1.Open();
-
-
-            }
-        }
-
-        private void btn_add_Click(object sender, EventArgs e)
-        {
-            ThemMatHangForm themMatHangForm = new ThemMatHangForm(this);
-            themMatHangForm.ShowDialog();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "Image Files|*.jpg;*.png;*.gif|All Files(*.*)|*.*";
-
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                pic_SanPham.ImageLocation = openFileDialog1.FileName;
-                filename.Text = openFileDialog1.FileName;
-                openFileDialog1.Dispose();
             }
         }
 
@@ -157,9 +154,22 @@ namespace CuaHangDienTu.UI.Admin
 
         }
 
-        private void filename_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Image Files|*.jpg;*.png;*.gif|All Files(*.*)|*.*";
 
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pic_SanPham.ImageLocation = openFileDialog1.FileName;
+                filename.Text = openFileDialog1.FileName;
+                openFileDialog1.Dispose();
+            }
+        }
+
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            ThemMatHangForm themMatHangForm = new ThemMatHangForm(this);
+            themMatHangForm.ShowDialog();
         }
     }
 }
