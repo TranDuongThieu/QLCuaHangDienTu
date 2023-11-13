@@ -120,6 +120,7 @@ namespace CuaHangDienTu.UI.Admin
             {
                 f.ShowDialog();
             }
+            UpdateGridView(sender, e);
         }
     }
 }
