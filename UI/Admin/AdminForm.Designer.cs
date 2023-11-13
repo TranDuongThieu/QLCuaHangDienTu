@@ -142,6 +142,7 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Sản phẩm";
             tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Click += tabPage2_Click;
             // 
             // tabPage3
             // 
