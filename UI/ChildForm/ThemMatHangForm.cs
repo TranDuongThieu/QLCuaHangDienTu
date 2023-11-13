@@ -19,14 +19,14 @@ namespace CuaHangDienTu.UI.ChildForm
 {
     public partial class ThemMatHangForm : Form
     {
-        private Admin_QLSP adminQlspInstance;
+        private Admin_QLMatHang adminQlspInstance;
         private class ThongSoKyThuat
         {
             public string maLoaiThongSo;
             public string giaTriThongSo;
         }
 
-        public ThemMatHangForm(Admin_QLSP adminQlspInstance)
+        public ThemMatHangForm(Admin_QLMatHang adminQlspInstance)
         {
             InitializeComponent();
             this.adminQlspInstance = adminQlspInstance;
@@ -311,7 +311,7 @@ namespace CuaHangDienTu.UI.ChildForm
                     {
                         // Nếu có lỗi, rollback giao dịch
                         transaction.Rollback();
-                        Console.WriteLine("Transaction rolled back. Reason: " + ex.Message);
+                        MessageBox.Show("Transaction rolled back. Reason: " + ex.Message);
                     }
 
                 }
