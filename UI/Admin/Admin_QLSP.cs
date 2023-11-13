@@ -101,6 +101,65 @@ namespace CuaHangDienTu.UI.Admin
             themMatHangForm.ShowDialog();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Image Files|*.jpg;*.png;*.gif|All Files(*.*)|*.*";
 
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pic_SanPham.ImageLocation = openFileDialog1.FileName;
+                filename.Text = openFileDialog1.FileName;
+                openFileDialog1.Dispose();
+            }
+        }
+
+        private void btn_Update_Click(object sender, EventArgs e)
+        {
+            //txt_Gia.Text
+            //txt_SL.Text
+            //txt_DaBan.Text 
+            //filename.Text
+            string matHangId = table_SP.CurrentRow.Cells[0].Value.ToString();
+            string tenSP = txt_Ten.Text.ToString();
+            string hinhAnh = filename.Text.ToString();
+            int gia = Int32.Parse(txt_Gia.Text);
+            int sl = Int32.Parse(txt_SL.Text);
+            int daban = Int32.Parse(txt_DaBan.Text);
+            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            {
+                try
+                {
+                    con1.Open();
+                    using (SqlCommand cmd = new SqlCommand("spCapNhatMatHangSP", con1))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@MaMatHang", SqlDbType.VarChar, 10)).Value = matHangId;
+                        cmd.Parameters.Add(new SqlParameter("@Gia", SqlDbType.Int)).Value = gia;
+                        cmd.Parameters.Add(new SqlParameter("@SoLuongDaBan", SqlDbType.Int)).Value = daban;
+                        cmd.Parameters.Add(new SqlParameter("@SoLuongTrongKho", SqlDbType.Int)).Value = sl;
+                        cmd.Parameters.Add(new SqlParameter("@TenSanPham", SqlDbType.NVarChar, 50)).Value = tenSP;
+                        cmd.Parameters.Add(new SqlParameter("@HinhAnh", SqlDbType.NVarChar, 255)).Value = hinhAnh;
+                        cmd.ExecuteNonQuery();
+                        //Admin_QLKH.
+                        // If the execution didn't throw an exception, it was successful.
+
+                        MessageBox.Show("Update successful");
+                        load_Table();
+                    }
+                    con1.Close();
+                }
+                catch (Exception ex)
+                {
+                    // Handle the exception (e.g., display an error message).
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void filename_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
