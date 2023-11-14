@@ -28,51 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
             productDetailsButton = new Button();
             addToCartButton = new Button();
-            productPictureBox = new PictureBox();
+            pic_product = new PictureBox();
             lb_name = new Label();
-            lb_des = new Label();
             lb_price = new Label();
-            ((System.ComponentModel.ISupportInitialize)productPictureBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pic_product).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(20, 328);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(121, 25);
-            label1.TabIndex = 0;
-            label1.Text = "Tên sản phẩm";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(20, 372);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(142, 25);
-            label2.TabIndex = 1;
-            label2.Text = "Mô tả sản phẩm";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(20, 417);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(37, 25);
-            label3.TabIndex = 2;
-            label3.Text = "Giá";
             // 
             // productDetailsButton
             // 
-            productDetailsButton.Location = new Point(20, 468);
+            productDetailsButton.Location = new Point(22, 476);
             productDetailsButton.Margin = new Padding(4, 5, 4, 5);
             productDetailsButton.Name = "productDetailsButton";
             productDetailsButton.Size = new Size(133, 38);
@@ -82,7 +48,7 @@
             // 
             // addToCartButton
             // 
-            addToCartButton.Location = new Point(161, 468);
+            addToCartButton.Location = new Point(180, 476);
             addToCartButton.Margin = new Padding(4, 5, 4, 5);
             addToCartButton.Name = "addToCartButton";
             addToCartButton.Size = new Size(133, 38);
@@ -90,41 +56,36 @@
             addToCartButton.Text = "Thêm vào giỏ hàng";
             addToCartButton.UseVisualStyleBackColor = true;
             // 
-            // productPictureBox
+            // pic_product
             // 
-            productPictureBox.BorderStyle = BorderStyle.Fixed3D;
-            productPictureBox.InitialImage = null;
-            productPictureBox.Location = new Point(20, 40);
-            productPictureBox.Margin = new Padding(4, 5, 4, 5);
-            productPictureBox.Name = "productPictureBox";
-            productPictureBox.Size = new Size(274, 257);
-            productPictureBox.TabIndex = 5;
-            productPictureBox.TabStop = false;
+            pic_product.BorderStyle = BorderStyle.FixedSingle;
+            pic_product.InitialImage = null;
+            pic_product.Location = new Point(9, 11);
+            pic_product.Margin = new Padding(4, 5, 4, 5);
+            pic_product.Name = "pic_product";
+            pic_product.Size = new Size(355, 335);
+            pic_product.TabIndex = 5;
+            pic_product.TabStop = false;
             // 
             // lb_name
             // 
             lb_name.AutoSize = true;
-            lb_name.Location = new Point(162, 328);
+            lb_name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lb_name.Location = new Point(33, 364);
+            lb_name.MinimumSize = new Size(280, 0);
             lb_name.Name = "lb_name";
-            lb_name.Size = new Size(56, 25);
+            lb_name.Size = new Size(280, 32);
             lb_name.TabIndex = 6;
             lb_name.Text = "name";
-            // 
-            // lb_des
-            // 
-            lb_des.AutoSize = true;
-            lb_des.Location = new Point(162, 372);
-            lb_des.Name = "lb_des";
-            lb_des.Size = new Size(40, 25);
-            lb_des.TabIndex = 7;
-            lb_des.Text = "des";
             // 
             // lb_price
             // 
             lb_price.AutoSize = true;
-            lb_price.Location = new Point(162, 417);
+            lb_price.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            lb_price.Location = new Point(33, 421);
+            lb_price.MaximumSize = new Size(280, 0);
             lb_price.Name = "lb_price";
-            lb_price.Size = new Size(50, 25);
+            lb_price.Size = new Size(61, 30);
             lb_price.TabIndex = 8;
             lb_price.Text = "price";
             // 
@@ -132,34 +93,27 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(lb_price);
-            Controls.Add(lb_des);
             Controls.Add(lb_name);
-            Controls.Add(productPictureBox);
+            Controls.Add(pic_product);
             Controls.Add(addToCartButton);
             Controls.Add(productDetailsButton);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "ProductCard";
-            Size = new Size(314, 538);
+            Size = new Size(375, 536);
             Load += ProductCard_Load;
-            ((System.ComponentModel.ISupportInitialize)productPictureBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pic_product).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
-        private Label label2;
-        private Label label3;
         private Button productDetailsButton;
         private Button addToCartButton;
-        private PictureBox productPictureBox;
+        private PictureBox pic_product;
         private Label lb_name;
-        private Label lb_des;
         private Label lb_price;
     }
 }

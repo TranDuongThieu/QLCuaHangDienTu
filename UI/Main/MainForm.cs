@@ -1,5 +1,7 @@
 ﻿
+using CuaHangDienTu.UI.Admin;
 using CuaHangDienTu.UI.Product;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuaHangDienTu.UI.Main
 {
@@ -20,17 +22,17 @@ namespace CuaHangDienTu.UI.Main
         {
             this.Close();
         }
-        private void ClearPanel()
-        {
-            Control[] controls = panel1.Controls.OfType<Control>().ToArray();
+        //private void ClearPanel()
+        //{
+        //    Control[] controls = panel1.Controls.OfType<Control>().ToArray();
 
-            // Dispose and remove the controls from the copy
-            foreach (Control control in controls)
-            {
-                control.Dispose();
-                panel1.Controls.Remove(control);
-            }
-        }
+        //    // Dispose and remove the controls from the copy
+        //    foreach (Control control in controls)
+        //    {
+        //        control.Dispose();
+        //        panel1.Controls.Remove(control);
+        //    }
+        //}
 
 
 
@@ -38,28 +40,16 @@ namespace CuaHangDienTu.UI.Main
         {
             this.WindowState = FormWindowState.Maximized;
 
-            string con = "Data Source=localhost,1433;Initial Catalog=CuaHangDienTu;Trusted_Connection=Yes";
+            ProductView phone = new ProductView("PHONE");
+            ProductView tablet = new ProductView("TABLET");
+            ProductView laptop = new ProductView("LAPTOP");
+
+            tab_phone.Controls.Add(phone);
+            tab_tablet.Controls.Add(tablet);
+            tab_laptop.Controls.Add(laptop);
 
 
-        }
 
-        private void btn__product_Click(object sender, EventArgs e)
-        {
-            ClearPanel();
-            ProductView productView = new ProductView();
-            productView.Dock = DockStyle.Fill;
-            panel1.Controls.Add(productView);
-        }
-
-        private void btn__home_Click(object sender, EventArgs e)
-        {
-            ClearPanel();
-            HomeView homeView = new HomeView();
-            homeView.Visible = true;
-            homeView.Dock = DockStyle.Fill;
-            homeView.BringToFront();
-            homeView.Location = new Point(0, 0);
-            panel1.Controls.Add(homeView);
         }
 
         private void btn__logout_Click(object sender, EventArgs e)
@@ -67,6 +57,16 @@ namespace CuaHangDienTu.UI.Main
             this.CloseForm();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tab_phone_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

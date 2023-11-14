@@ -115,6 +115,7 @@
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2ComboBox2.Size = new Size(314, 36);
             guna2ComboBox2.TabIndex = 2;
+            guna2ComboBox2.SelectedValueChanged += guna2ComboBox2_SelectedValueChanged;
             // 
             // txt_name
             // 
