@@ -53,13 +53,6 @@ namespace CuaHangDienTu.UI.Admin
 
             }
         }
-
-
-
-
-
-
-
         private void filename_Click(object sender, EventArgs e)
         {
 

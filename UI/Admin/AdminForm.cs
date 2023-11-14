@@ -5,6 +5,7 @@
         public AdminForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -19,24 +20,6 @@
             tabDNH.Controls.Add(admin_QLDNH);
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabKH_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

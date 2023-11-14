@@ -33,6 +33,7 @@ namespace CuaHangDienTu.UI.ChildForm
         }
         string sqlConnectionString = Properties.Settings.Default.connectionString;
         string madanhmuc;
+        List<string> madanhmuccon = new List<string>();
         private void guna2ComboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (guna2ComboBox1.SelectedItem != null)
@@ -74,7 +75,7 @@ namespace CuaHangDienTu.UI.ChildForm
                 while (reader.Read())
                 {
                     danhMucList.Add(reader["TenDanhMuc"].ToString());
-                    madanhmuc = reader["MaDanhMuc"].ToString();
+                    madanhmuccon.Add(reader["MaDanhMuc"].ToString());
                 }
 
                 con1.Close();
@@ -122,7 +123,7 @@ namespace CuaHangDienTu.UI.ChildForm
                 });
             }
         }
-        private List<String> getThongSo(string MaLoaiThongSo)
+        private List<string> getThongSo(string MaLoaiThongSo)
         {
             using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
             {
@@ -322,6 +323,12 @@ namespace CuaHangDienTu.UI.ChildForm
         private void ThemMatHangForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2ComboBox2_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            madanhmuc = madanhmuccon[guna2ComboBox2.SelectedIndex];
         }
     }
 }
