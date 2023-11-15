@@ -77,6 +77,7 @@
             lb_name.Size = new Size(280, 32);
             lb_name.TabIndex = 6;
             lb_name.Text = "name";
+            lb_name.Click += lb_name_Click;
             // 
             // lb_price
             // 

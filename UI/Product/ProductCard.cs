@@ -49,5 +49,10 @@ namespace CuaHangDienTu.UI.Product
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void lb_name_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

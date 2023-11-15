@@ -111,13 +111,18 @@ namespace CuaHangDienTu.UI.ChildForm
                     combobox.DataSource = giatrithongso;
                     combobox.Location = new Point(110, 10);
 
+                    CheckedListBox checkedList = new CheckedListBox();
+                    giatrithongso.ForEach(gi => { checkedList.Items.Add(gi.ToString()); });
+                    checkedList.Location = new Point(105, 10);
 
                     label.Width = 100; // Set width as needed
                     combobox.Width = 300;
+                    checkedList.MinimumSize = new Size(300, 0);
 
                     Panel panel = new Panel();
                     panel.Controls.Add(label);
-                    panel.Controls.Add(combobox);
+                    //panel.Controls.Add(combobox);
+                    panel.Controls.Add(checkedList);
 
                     panel_thongso.Controls.Add(panel);
                 });
@@ -206,20 +211,33 @@ namespace CuaHangDienTu.UI.ChildForm
                 {
                     Panel panel = (Panel)panelControl;
 
-                    ThongSoKyThuat thongSo = new ThongSoKyThuat();
+
+                    string tenthongso = "";
                     foreach (Control control in panel.Controls)
                     {
                         if (control is Label)
                         {
-                            thongSo.maLoaiThongSo = control.Text.ToString().ToLower();
+                            tenthongso = control.Text.ToString().ToLower();
                         }
-                        if (control is Guna2ComboBox)
+                        //if (control is Guna2ComboBox)
+                        //{
+                        //    Guna2ComboBox combobox = (Guna2ComboBox)control;
+                        //    thongSo.giaTriThongSo = combobox.SelectedValue.ToString();
+                        //}
+                        if (control is CheckedListBox)
                         {
-                            Guna2ComboBox combobox = (Guna2ComboBox)control;
-                            thongSo.giaTriThongSo = combobox.SelectedValue.ToString();
+                            CheckedListBox checkedListBox = (CheckedListBox)control;
+                            foreach (var item in checkedListBox.CheckedItems)
+                            {
+                                ThongSoKyThuat thongSo = new ThongSoKyThuat();
+                                thongSo.maLoaiThongSo = tenthongso;
+                                thongSo.giaTriThongSo = item.ToString();
+                                listThongSo.Add(thongSo);
+
+                            }
                         }
                     }
-                    listThongSo.Add(thongSo);
+
                 }
             }
 
