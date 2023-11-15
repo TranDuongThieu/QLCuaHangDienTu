@@ -58,12 +58,14 @@ namespace CuaHangDienTu.UI.ChildForm
                         cmd.ExecuteNonQuery();
                         //Admin_QLKH.
                         // If the execution didn't throw an exception, it was successful.
+                        
                         MessageBox.Show("Insert successful");
                         if (parentForm != null)
                         {
                             parentForm.Load_Table_KH(); // Call the method on the parent form instance
                         }
                     }
+                    con1.Close();
                 }
                 catch (Exception ex)
                 {

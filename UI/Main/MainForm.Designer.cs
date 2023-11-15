@@ -28,94 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btn__home = new Guna.UI2.WinForms.Guna2Button();
-            btn__product = new Guna.UI2.WinForms.Guna2Button();
-            btn__logout = new Guna.UI2.WinForms.Guna2Button();
-            panel1 = new Panel();
+            guna2TabControl1 = new Guna.UI2.WinForms.Guna2TabControl();
+            tab_phone = new TabPage();
+            tab_tablet = new TabPage();
+            tab_laptop = new TabPage();
+            tab_hoadon = new TabPage();
+            guna2TabControl1.SuspendLayout();
             SuspendLayout();
             // 
-            // btn__home
+            // guna2TabControl1
             // 
-            btn__home.CustomizableEdges = customizableEdges1;
-            btn__home.DisabledState.BorderColor = Color.DarkGray;
-            btn__home.DisabledState.CustomBorderColor = Color.DarkGray;
-            btn__home.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btn__home.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btn__home.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btn__home.ForeColor = Color.White;
-            btn__home.Location = new Point(3, 12);
-            btn__home.Name = "btn__home";
-            btn__home.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btn__home.Size = new Size(135, 43);
-            btn__home.TabIndex = 2;
-            btn__home.Text = "Home";
-            btn__home.Click += btn__home_Click;
+            guna2TabControl1.Alignment = TabAlignment.Left;
+            guna2TabControl1.Controls.Add(tab_phone);
+            guna2TabControl1.Controls.Add(tab_tablet);
+            guna2TabControl1.Controls.Add(tab_laptop);
+            guna2TabControl1.Controls.Add(tab_hoadon);
+            guna2TabControl1.Dock = DockStyle.Fill;
+            guna2TabControl1.ItemSize = new Size(180, 40);
+            guna2TabControl1.Location = new Point(0, 0);
+            guna2TabControl1.Name = "guna2TabControl1";
+            guna2TabControl1.SelectedIndex = 0;
+            guna2TabControl1.Size = new Size(1409, 750);
+            guna2TabControl1.TabButtonHoverState.BorderColor = Color.Empty;
+            guna2TabControl1.TabButtonHoverState.FillColor = Color.FromArgb(40, 52, 70);
+            guna2TabControl1.TabButtonHoverState.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            guna2TabControl1.TabButtonHoverState.ForeColor = Color.White;
+            guna2TabControl1.TabButtonHoverState.InnerColor = Color.FromArgb(40, 52, 70);
+            guna2TabControl1.TabButtonIdleState.BorderColor = Color.Empty;
+            guna2TabControl1.TabButtonIdleState.FillColor = Color.FromArgb(33, 42, 57);
+            guna2TabControl1.TabButtonIdleState.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            guna2TabControl1.TabButtonIdleState.ForeColor = Color.FromArgb(156, 160, 167);
+            guna2TabControl1.TabButtonIdleState.InnerColor = Color.FromArgb(33, 42, 57);
+            guna2TabControl1.TabButtonSelectedState.BorderColor = Color.Empty;
+            guna2TabControl1.TabButtonSelectedState.FillColor = Color.FromArgb(29, 37, 49);
+            guna2TabControl1.TabButtonSelectedState.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            guna2TabControl1.TabButtonSelectedState.ForeColor = Color.White;
+            guna2TabControl1.TabButtonSelectedState.InnerColor = Color.FromArgb(76, 132, 255);
+            guna2TabControl1.TabButtonSize = new Size(180, 40);
+            guna2TabControl1.TabIndex = 0;
+            guna2TabControl1.TabMenuBackColor = Color.FromArgb(33, 42, 57);
             // 
-            // btn__product
+            // tab_phone
             // 
-            btn__product.CustomizableEdges = customizableEdges3;
-            btn__product.DisabledState.BorderColor = Color.DarkGray;
-            btn__product.DisabledState.CustomBorderColor = Color.DarkGray;
-            btn__product.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btn__product.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btn__product.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btn__product.ForeColor = Color.White;
-            btn__product.Location = new Point(3, 61);
-            btn__product.Name = "btn__product";
-            btn__product.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btn__product.Size = new Size(135, 43);
-            btn__product.TabIndex = 3;
-            btn__product.Text = "Product";
-            btn__product.Click += btn__product_Click;
+            tab_phone.Location = new Point(184, 4);
+            tab_phone.Name = "tab_phone";
+            tab_phone.Padding = new Padding(3);
+            tab_phone.Size = new Size(1221, 742);
+            tab_phone.TabIndex = 0;
+            tab_phone.Text = "Điện Thoại";
+            tab_phone.UseVisualStyleBackColor = true;
+            tab_phone.Click += tab_phone_Click;
             // 
-            // btn__logout
+            // tab_tablet
             // 
-            btn__logout.CustomizableEdges = customizableEdges5;
-            btn__logout.DisabledState.BorderColor = Color.DarkGray;
-            btn__logout.DisabledState.CustomBorderColor = Color.DarkGray;
-            btn__logout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btn__logout.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btn__logout.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btn__logout.ForeColor = Color.White;
-            btn__logout.Location = new Point(3, 630);
-            btn__logout.Name = "btn__logout";
-            btn__logout.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btn__logout.Size = new Size(135, 43);
-            btn__logout.TabIndex = 4;
-            btn__logout.Text = "LogOut";
-            btn__logout.Click += btn__logout_Click;
+            tab_tablet.Location = new Point(184, 4);
+            tab_tablet.Name = "tab_tablet";
+            tab_tablet.Padding = new Padding(3);
+            tab_tablet.Size = new Size(1221, 742);
+            tab_tablet.TabIndex = 1;
+            tab_tablet.Text = "Tablet";
+            tab_tablet.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // tab_laptop
             // 
-            panel1.BackColor = SystemColors.ControlLight;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Dock = DockStyle.Right;
-            panel1.ForeColor = SystemColors.MenuHighlight;
-            panel1.Location = new Point(181, 0);
-            panel1.Margin = new Padding(4, 5, 4, 5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1228, 750);
-            panel1.TabIndex = 1;
+            tab_laptop.Location = new Point(184, 4);
+            tab_laptop.Name = "tab_laptop";
+            tab_laptop.Size = new Size(1221, 742);
+            tab_laptop.TabIndex = 2;
+            tab_laptop.Text = "Laptop";
+            tab_laptop.UseVisualStyleBackColor = true;
+            // 
+            // tab_hoadon
+            // 
+            tab_hoadon.Location = new Point(184, 4);
+            tab_hoadon.Name = "tab_hoadon";
+            tab_hoadon.Padding = new Padding(3);
+            tab_hoadon.Size = new Size(1221, 742);
+            tab_hoadon.TabIndex = 3;
+            tab_hoadon.Text = "Hóa Đơn";
+            tab_hoadon.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1409, 750);
-            Controls.Add(btn__logout);
-            Controls.Add(btn__product);
-            Controls.Add(btn__home);
-            Controls.Add(panel1);
+            Controls.Add(guna2TabControl1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "MainForm";
             Text = "MainForm";
             Load += MainForm_Load;
+            guna2TabControl1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -124,9 +127,10 @@
         private Button logoutButton;
         private Button view1Button;
         private Button view2Button;
-        private Guna.UI2.WinForms.Guna2Button btn__home;
-        private Guna.UI2.WinForms.Guna2Button btn__product;
-        private Guna.UI2.WinForms.Guna2Button btn__logout;
-        private Panel panel1;
+        private Guna.UI2.WinForms.Guna2TabControl guna2TabControl1;
+        private TabPage tab_phone;
+        private TabPage tab_tablet;
+        private TabPage tab_laptop;
+        private TabPage tab_hoadon;
     }
 }

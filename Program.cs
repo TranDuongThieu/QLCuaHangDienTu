@@ -1,3 +1,6 @@
+using CuaHangDienTu.UI.Admin;
+using CuaHangDienTu.UI.Main;
+
 namespace CuaHangDienTu
 {
     internal static class Program
@@ -14,7 +17,7 @@ namespace CuaHangDienTu
             SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new MainForm());
         }
     }
 }
