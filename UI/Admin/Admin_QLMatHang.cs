@@ -102,19 +102,8 @@ namespace CuaHangDienTu.UI.Admin
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
-        private void btn_Update_Click(object sender, EventArgs e)
+        private void CapNhatSP(string matHangId, string tenSP, string hinhAnh, int gia, int sl, int daban)
         {
-            //txt_Gia.Text
-            //txt_SL.Text
-            //txt_DaBan.Text 
-            //filename.Text
-            string matHangId = table_SP.CurrentRow.Cells[0].Value.ToString();
-            string tenSP = txt_Ten.Text.ToString();
-            string hinhAnh = filename.Text.ToString();
-            int gia = Int32.Parse(txt_Gia.Text);
-            int sl = Int32.Parse(txt_SL.Text);
-            int daban = Int32.Parse(txt_DaBan.Text);
             using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
             {
                 try
@@ -144,6 +133,17 @@ namespace CuaHangDienTu.UI.Admin
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+        }
+
+        private void btn_Update_Click(object sender, EventArgs e)
+        {
+            string matHangId = table_SP.CurrentRow.Cells[0].Value.ToString();
+            string tenSP = txt_Ten.Text.ToString();
+            string hinhAnh = filename.Text.ToString();
+            int gia = Int32.Parse(txt_Gia.Text);
+            int sl = Int32.Parse(txt_SL.Text);
+            int daban = Int32.Parse(txt_DaBan.Text);
+            CapNhatSP(matHangId, tenSP, hinhAnh, gia, sl, daban);
 
         }
 
@@ -163,6 +163,15 @@ namespace CuaHangDienTu.UI.Admin
         {
             ThemMatHangForm themMatHangForm = new ThemMatHangForm(this);
             themMatHangForm.ShowDialog();
+        }
+        private void XoaSanPham()
+        {
+            string matHangId = table_SP.CurrentRow.Cells[0].Value.ToString();
+        }
+
+        private void btn_Xoa_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

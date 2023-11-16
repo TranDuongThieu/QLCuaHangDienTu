@@ -45,6 +45,7 @@
             productDetailsButton.TabIndex = 3;
             productDetailsButton.Text = "Xem chi tiết";
             productDetailsButton.UseVisualStyleBackColor = true;
+            productDetailsButton.Click += productDetailsButton_Click;
             // 
             // addToCartButton
             // 

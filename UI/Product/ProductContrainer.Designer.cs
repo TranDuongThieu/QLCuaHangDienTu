@@ -69,6 +69,7 @@
             guna2TextBox1.Size = new Size(450, 66);
             guna2TextBox1.TabIndex = 2;
             guna2TextBox1.IconRightClick += guna2TextBox1_IconRightClick;
+            guna2TextBox1.TextChanged += guna2TextBox1_TextChanged;
             // 
             // flowPanel
             // 

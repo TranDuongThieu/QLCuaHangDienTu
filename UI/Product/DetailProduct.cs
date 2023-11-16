@@ -1,4 +1,4 @@
-using CuaHangDienTu.Models;
+﻿using CuaHangDienTu.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,20 +11,23 @@ using System.Windows.Forms;
 
 namespace CuaHangDienTu.UI.Product
 {
-    public partial class ProductCard : UserControl
+    public partial class DetailProduct : Form
     {
         ProductModel product;
-        public ProductCard(ProductModel product)
+        public DetailProduct(ProductModel product)
         {
-            this.product = product;
             InitializeComponent();
+            this.product = product;
         }
 
-        private void ProductCard_Load(object sender, EventArgs e)
+        private void DetailProduct_Load(object sender, EventArgs e)
         {
-            lb_name.Text = product.TenSP;
-            lb_price.Text = product.Gia.ToString();
-
+            name.Text = product.TenSP;
+            gia.Text = product.Gia.ToString();
+            mota.Text = product.MoTa.ToString();
+            soluong.Text = product.SoLuong.ToString();
+            daban.Text = product.DaBan.ToString();
+            baohanh.Text = product.ThoiHanBaoHanh.ToString();
             try
             {
                 // Get the file path from the cell
@@ -35,12 +38,12 @@ namespace CuaHangDienTu.UI.Product
                 {
                     // Load the image from the file
                     Image img = Image.FromFile(filePath);
-                    pic_product.Image = img;
+                    pictureBox1.Image = img;
                 }
                 else
                 {
                     // Handle the case where the file does not exist
-                    pic_product.Image = null; // Set a default image or handle the error in a different way
+                    pictureBox1.Image = null; // Set a default image or handle the error in a different way
                 }
             }
             catch (Exception ex)
@@ -48,11 +51,6 @@ namespace CuaHangDienTu.UI.Product
                 // Handle other exceptions if necessary
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
-
-        private void lb_name_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
