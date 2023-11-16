@@ -1,4 +1,5 @@
-
+﻿
+using CuaHangDienTu.Models;
 using CuaHangDienTu.UI.ChildForm;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -62,6 +63,35 @@ namespace CuaHangDienTu.UI.Admin
             tao_KhachHang_Form.Show();
         }
 
+        private void xoaKH(string id)
+        {
+            try
+            {
+                using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+                {
+                    con1.Open();
+
+                    using (SqlCommand cmd = new SqlCommand("spXoaKH", con1))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Thêm tham số đầu vào cho thủ tục
+                        cmd.Parameters.Add("@MaKH", SqlDbType.NVarChar, 10).Value = id;
+
+                        // Thực thi thủ tục
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                MessageBox.Show("Xóa khách hàng thành công!");
+                Load_Table_KH();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi xóa khách hàng: " + ex.Message);
+            }
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             // Get the selected MaKH (ID) from the DataGridView
@@ -73,28 +103,46 @@ namespace CuaHangDienTu.UI.Admin
             if (result == DialogResult.Yes)
             {
                 // Attempt to delete the record
-                using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
-                {
-                    con1.Open();
-                    using (SqlCommand cmd = new SqlCommand("DELETE FROM KHACH_HANG WHERE MaKH = @MaKH", con1))
-                    {
-                        cmd.Parameters.Add(new SqlParameter("@MaKH", SqlDbType.NChar, 10)).Value = id;
-
-                        int rowsAffected = cmd.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("Record deleted successfully.");
-                            Load_Table_KH(); // Refresh the DataGridView after deletion
-                        }
-                        else
-                        {
-                            MessageBox.Show("No record was deleted. MaKH not found.");
-                        }
-                    }
-                }
+                xoaKH(id);
             }
         }
 
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void TimKiemKhachHang(string tenKH)
+        {
+            DataTable resultTable = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(sqlConnectionString))
+            {
+                con.Open();
+
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM timKiemKhachHang(@HoTenKH)", con))
+                {
+                    cmd.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = tenKH;
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(resultTable);
+                    }
+                }
+            }
+
+            dataGridView1.DataSource = resultTable;
+        }
+
+
+
+        private void guna2TextBox1_IconRightClick(object sender, EventArgs e)
+        {
+
+            string tenKH = guna2TextBox1.Text.ToString();
+            TimKiemKhachHang(tenKH);
+
+        }
     }
 }
