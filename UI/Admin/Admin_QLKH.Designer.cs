@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin_QLKH));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             dataGridView1 = new DataGridView();
             MaKH = new DataGridViewTextBoxColumn();
             tenKH = new DataGridViewTextBoxColumn();
@@ -37,6 +40,7 @@
             button2 = new Button();
             button3 = new Button();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -83,9 +87,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(57, 154);
+            button1.Location = new Point(57, 133);
             button1.Name = "button1";
-            button1.Size = new Size(112, 34);
+            button1.Size = new Size(112, 55);
             button1.TabIndex = 1;
             button1.Text = "Thêm";
             button1.UseVisualStyleBackColor = true;
@@ -93,9 +97,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(333, 154);
+            button2.Location = new Point(333, 133);
             button2.Name = "button2";
-            button2.Size = new Size(112, 34);
+            button2.Size = new Size(112, 55);
             button2.TabIndex = 2;
             button2.Text = "Xóa";
             button2.UseVisualStyleBackColor = true;
@@ -103,9 +107,9 @@
             // 
             // button3
             // 
-            button3.Location = new Point(199, 154);
+            button3.Location = new Point(199, 133);
             button3.Name = "button3";
-            button3.Size = new Size(112, 34);
+            button3.Size = new Size(112, 55);
             button3.TabIndex = 3;
             button3.Text = "Sửa";
             button3.UseVisualStyleBackColor = true;
@@ -121,10 +125,38 @@
             guna2HtmlLabel1.TabIndex = 4;
             guna2HtmlLabel1.Text = "Quản lý khách hàng";
             // 
+            // guna2TextBox1
+            // 
+            guna2TextBox1.CustomizableEdges = customizableEdges1;
+            guna2TextBox1.DefaultText = "";
+            guna2TextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            guna2TextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            guna2TextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            guna2TextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2TextBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            guna2TextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2TextBox1.IconLeftSize = new Size(32, 32);
+            guna2TextBox1.IconRight = (Image)resources.GetObject("guna2TextBox1.IconRight");
+            guna2TextBox1.IconRightCursor = Cursors.Hand;
+            guna2TextBox1.IconRightSize = new Size(32, 32);
+            guna2TextBox1.Location = new Point(541, 133);
+            guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
+            guna2TextBox1.Name = "guna2TextBox1";
+            guna2TextBox1.PasswordChar = '\0';
+            guna2TextBox1.PlaceholderText = "Tìm kiếm khách hàng";
+            guna2TextBox1.SelectedText = "";
+            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2TextBox1.Size = new Size(450, 55);
+            guna2TextBox1.TabIndex = 5;
+            guna2TextBox1.IconRightClick += guna2TextBox1_IconRightClick;
+            guna2TextBox1.TextChanged += guna2TextBox1_TextChanged;
+            // 
             // Admin_QLKH
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(guna2TextBox1);
             Controls.Add(guna2HtmlLabel1);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -149,5 +181,6 @@
         private DataGridViewTextBoxColumn tenKH;
         private DataGridViewTextBoxColumn sdt;
         private DataGridViewTextBoxColumn diemThanhVien;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
     }
 }

@@ -30,6 +30,9 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin_QLMatHang));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             button1 = new Button();
             filename = new Label();
             btn_add = new Guna.UI2.WinForms.Guna2Button();
@@ -48,13 +51,14 @@
             table_SP = new DataGridView();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             openFileDialog1 = new OpenFileDialog();
+            guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)pic_SanPham).BeginInit();
             ((System.ComponentModel.ISupportInitialize)table_SP).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(752, 429);
+            button1.Location = new Point(1030, 516);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 42;
@@ -65,7 +69,7 @@
             // filename
             // 
             filename.AutoSize = true;
-            filename.Location = new Point(870, 434);
+            filename.Location = new Point(1148, 521);
             filename.Name = "filename";
             filename.Size = new Size(79, 25);
             filename.TabIndex = 41;
@@ -81,7 +85,7 @@
             btn_add.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btn_add.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btn_add.ForeColor = Color.White;
-            btn_add.Location = new Point(242, 589);
+            btn_add.Location = new Point(320, 746);
             btn_add.Name = "btn_add";
             btn_add.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btn_add.Size = new Size(270, 68);
@@ -92,17 +96,18 @@
             // btn_Xoa
             // 
             btn_Xoa.BackColor = Color.Red;
-            btn_Xoa.Location = new Point(1080, 650);
+            btn_Xoa.Location = new Point(1424, 746);
             btn_Xoa.Name = "btn_Xoa";
             btn_Xoa.Size = new Size(143, 50);
             btn_Xoa.TabIndex = 39;
             btn_Xoa.Text = "Xóa Sản Phẩm";
             btn_Xoa.UseVisualStyleBackColor = false;
+            btn_Xoa.Click += btn_Xoa_Click_1;
             // 
             // btn_Update
             // 
             btn_Update.BackColor = Color.Lime;
-            btn_Update.Location = new Point(854, 650);
+            btn_Update.Location = new Point(1198, 746);
             btn_Update.Name = "btn_Update";
             btn_Update.Size = new Size(143, 50);
             btn_Update.TabIndex = 38;
@@ -112,28 +117,28 @@
             // 
             // txt_DaBan
             // 
-            txt_DaBan.Location = new Point(1133, 593);
+            txt_DaBan.Location = new Point(1477, 689);
             txt_DaBan.Name = "txt_DaBan";
             txt_DaBan.Size = new Size(161, 31);
             txt_DaBan.TabIndex = 37;
             // 
             // txt_SL
             // 
-            txt_SL.Location = new Point(855, 593);
+            txt_SL.Location = new Point(1199, 689);
             txt_SL.Name = "txt_SL";
             txt_SL.Size = new Size(153, 31);
             txt_SL.TabIndex = 36;
             // 
             // txt_Gia
             // 
-            txt_Gia.Location = new Point(855, 542);
+            txt_Gia.Location = new Point(1199, 638);
             txt_Gia.Name = "txt_Gia";
             txt_Gia.Size = new Size(182, 31);
             txt_Gia.TabIndex = 35;
             // 
             // txt_Ten
             // 
-            txt_Ten.Location = new Point(855, 492);
+            txt_Ten.Location = new Point(1199, 588);
             txt_Ten.Name = "txt_Ten";
             txt_Ten.ReadOnly = true;
             txt_Ten.Size = new Size(439, 31);
@@ -142,16 +147,17 @@
             // pic_SanPham
             // 
             pic_SanPham.BorderStyle = BorderStyle.Fixed3D;
-            pic_SanPham.Location = new Point(752, 149);
+            pic_SanPham.Location = new Point(1081, 154);
             pic_SanPham.Name = "pic_SanPham";
-            pic_SanPham.Size = new Size(542, 273);
+            pic_SanPham.Size = new Size(484, 341);
+            pic_SanPham.SizeMode = PictureBoxSizeMode.StretchImage;
             pic_SanPham.TabIndex = 33;
             pic_SanPham.TabStop = false;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1044, 599);
+            label5.Location = new Point(1388, 695);
             label5.Name = "label5";
             label5.Size = new Size(83, 25);
             label5.TabIndex = 32;
@@ -160,7 +166,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(737, 593);
+            label4.Location = new Point(1081, 689);
             label4.Name = "label4";
             label4.Size = new Size(103, 25);
             label4.TabIndex = 31;
@@ -169,7 +175,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(794, 542);
+            label3.Location = new Point(1138, 638);
             label3.Name = "label3";
             label3.Size = new Size(46, 25);
             label3.TabIndex = 30;
@@ -178,7 +184,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(709, 495);
+            label2.Location = new Point(1053, 591);
             label2.Name = "label2";
             label2.Size = new Size(131, 25);
             label2.TabIndex = 29;
@@ -188,7 +194,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(827, 64);
+            label1.Location = new Point(1153, 75);
             label1.Name = "label1";
             label1.Size = new Size(312, 45);
             label1.TabIndex = 28;
@@ -197,11 +203,11 @@
             // table_SP
             // 
             table_SP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            table_SP.Location = new Point(90, 149);
+            table_SP.Location = new Point(102, 224);
             table_SP.Name = "table_SP";
             table_SP.RowHeadersWidth = 62;
             table_SP.RowTemplate.Height = 33;
-            table_SP.Size = new Size(601, 362);
+            table_SP.Size = new Size(855, 498);
             table_SP.TabIndex = 27;
             table_SP.SelectionChanged += table_SP_SelectionChanged;
             // 
@@ -219,10 +225,36 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // guna2TextBox1
+            // 
+            guna2TextBox1.CustomizableEdges = customizableEdges3;
+            guna2TextBox1.DefaultText = "";
+            guna2TextBox1.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            guna2TextBox1.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            guna2TextBox1.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            guna2TextBox1.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2TextBox1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            guna2TextBox1.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2TextBox1.IconLeftSize = new Size(32, 32);
+            guna2TextBox1.IconRight = (Image)resources.GetObject("guna2TextBox1.IconRight");
+            guna2TextBox1.IconRightCursor = Cursors.Hand;
+            guna2TextBox1.IconRightSize = new Size(32, 32);
+            guna2TextBox1.Location = new Point(102, 143);
+            guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
+            guna2TextBox1.Name = "guna2TextBox1";
+            guna2TextBox1.PasswordChar = '\0';
+            guna2TextBox1.PlaceholderText = "Tìm kiếm sản phẩm";
+            guna2TextBox1.SelectedText = "";
+            guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2TextBox1.Size = new Size(559, 55);
+            guna2TextBox1.TabIndex = 43;
+            // 
             // Admin_QLMatHang
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(guna2TextBox1);
             Controls.Add(button1);
             Controls.Add(filename);
             Controls.Add(btn_add);
@@ -241,7 +273,7 @@
             Controls.Add(table_SP);
             Controls.Add(guna2HtmlLabel1);
             Name = "Admin_QLMatHang";
-            Size = new Size(1408, 742);
+            Size = new Size(1734, 857);
             Load += Admin_QLMatHang_Load;
             ((System.ComponentModel.ISupportInitialize)pic_SanPham).EndInit();
             ((System.ComponentModel.ISupportInitialize)table_SP).EndInit();
@@ -269,5 +301,6 @@
         private DataGridView table_SP;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private OpenFileDialog openFileDialog1;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
     }
 }

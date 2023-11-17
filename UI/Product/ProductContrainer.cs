@@ -47,8 +47,9 @@ namespace CuaHangDienTu.UI.Product
                             string hinhAnh = reader["HinhAnhSP"].ToString();
                             int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
                             int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
-
-                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan);
+                            int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
+                            string mota = reader["MoTaSP"].ToString();
+                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
                             productList.Add(product);
                         }
                     }
@@ -163,8 +164,9 @@ namespace CuaHangDienTu.UI.Product
                             string hinhAnh = reader["HinhAnhSP"].ToString();
                             int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
                             int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
-
-                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan);
+                            int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
+                            string mota = reader["MoTaSP"].ToString();
+                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
                             productList.Add(product);
                         }
                     }
@@ -179,6 +181,11 @@ namespace CuaHangDienTu.UI.Product
             string productName = guna2TextBox1.Text.ToString();
             List<ProductModel> productList = getSanPhamTuTen(productName);
             LoadListSP(productList);
+        }
+
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

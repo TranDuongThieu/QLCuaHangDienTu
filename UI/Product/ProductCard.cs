@@ -1,4 +1,4 @@
-﻿using CuaHangDienTu.Models;
+using CuaHangDienTu.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,6 +48,17 @@ namespace CuaHangDienTu.UI.Product
                 // Handle other exceptions if necessary
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void lb_name_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void productDetailsButton_Click(object sender, EventArgs e)
+        {
+            DetailProduct detailProduct = new DetailProduct(product);
+            detailProduct.Show();
         }
     }
 }
