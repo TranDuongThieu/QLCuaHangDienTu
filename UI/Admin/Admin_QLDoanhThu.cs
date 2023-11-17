@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using CuaHangDienTu.Models;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace CuaHangDienTu.UI.Admin
@@ -24,22 +25,25 @@ namespace CuaHangDienTu.UI.Admin
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDoanhThuTheoThang(@NgayBatDau, @NgayKetThuc);", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
-                        command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDoanhThuTheoThang(@NgayBatDau, @NgayKetThuc);", con))
                         {
-                            if (reader.HasRows)
+                            command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
+                            command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
+                            db.OpenConnection();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                while (reader.Read())
+                                if (reader.HasRows)
                                 {
-                                    string month = reader.GetString(0);
-                                    int income = reader.GetInt32(1);
-                                    incomeResult.Add(month, income);
+                                    while (reader.Read())
+                                    {
+                                        string month = reader.GetString(0);
+                                        int income = reader.GetInt32(1);
+                                        incomeResult.Add(month, income);
+                                    }
                                 }
                             }
                         }
@@ -59,22 +63,25 @@ namespace CuaHangDienTu.UI.Admin
             DateTime endDate = startDate.AddDays(6);
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDoanhThuTheoNgay(@NgayBatDau, @NgayKetThuc);", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
-                        command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDoanhThuTheoNgay(@NgayBatDau, @NgayKetThuc);", con))
                         {
-                            if (reader.HasRows)
+                            command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
+                            command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
+                            db.OpenConnection();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                while (reader.Read())
+                                if (reader.HasRows)
                                 {
-                                    DateTime date = reader.GetDateTime(0);
-                                    int income = reader.GetInt32(1);
-                                    incomeResult.Add(date, income);
+                                    while (reader.Read())
+                                    {
+                                        DateTime date = reader.GetDateTime(0);
+                                        int income = reader.GetInt32(1);
+                                        incomeResult.Add(date, income);
+                                    }
                                 }
                             }
                         }
@@ -162,14 +169,17 @@ namespace CuaHangDienTu.UI.Admin
             int totalValue = 0;
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT dbo.fnTongThuNhapTrongKhoangThoiGian(@NgayBatdau, @NgayKetThuc)", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = choosingStartTime.Date;
-                        command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = choosingEndTime.Date;
-                        connection.Open();
-                        totalValue = (int)command.ExecuteScalar();
+                        using (SqlCommand command = new SqlCommand("SELECT dbo.fnTongThuNhapTrongKhoangThoiGian(@NgayBatdau, @NgayKetThuc)", con))
+                        {
+                            command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = choosingStartTime.Date;
+                            command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = choosingEndTime.Date;
+                            db.OpenConnection();
+                            totalValue = (int)command.ExecuteScalar();
+                        }
                     }
                 }
             }
@@ -185,26 +195,29 @@ namespace CuaHangDienTu.UI.Admin
             List<Models.Order> result = new List<Models.Order>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDonHangTrongKhoangThoiGian(@NgayBatDau, @NgayKetThuc);", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
-                        command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("SELECT * FROM fnLayDonHangTrongKhoangThoiGian(@NgayBatDau, @NgayKetThuc);", con))
                         {
-                            if (reader.HasRows)
+                            command.Parameters.Add("@NgayBatDau", SqlDbType.Date).Value = startDate;
+                            command.Parameters.Add("@NgayKetThuc", SqlDbType.Date).Value = endDate;
+                            db.OpenConnection();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                while (reader.Read())
+                                if (reader.HasRows)
                                 {
-                                    Models.Order order = new Models.Order();
-                                    order.CustomerId = reader.GetString("MaKH");
-                                    order.OrderId = reader.GetString("MaDH");
-                                    order.DepartmentId = reader.GetString("MaCN");
-                                    order.TotalValue = reader.GetInt32("TongGiaTri");
-                                    order.CreatedDate = reader.GetDateTime("NgayDatHang");
-                                    result.Add(order);
+                                    while (reader.Read())
+                                    {
+                                        Models.Order order = new Models.Order();
+                                        order.CustomerId = reader.GetString("MaKH");
+                                        order.OrderId = reader.GetString("MaDH");
+                                        order.DepartmentId = reader.GetString("MaCN");
+                                        order.TotalValue = reader.GetInt32("TongGiaTri");
+                                        order.CreatedDate = reader.GetDateTime("NgayDatHang");
+                                        result.Add(order);
+                                    }
                                 }
                             }
                         }

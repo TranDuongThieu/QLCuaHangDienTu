@@ -45,20 +45,23 @@ namespace CuaHangDienTu.UI.Order
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spXoaDonHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("spXoaDonHang", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _selectedOrder.OrderId;
+                            command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _selectedOrder.OrderId;
 
-                        connection.Open();
+                            db.OpenConnection();
 
-                        command.ExecuteNonQuery();
+                            command.ExecuteNonQuery();
 
-                        MessageBox.Show("Đã xóa đơn hàng thành công!");
-                        OnOrderDeleted(EventArgs.Empty);
+                            MessageBox.Show("Đã xóa đơn hàng thành công!");
+                            OnOrderDeleted(EventArgs.Empty);
+                        }
                     }
                 }
             }

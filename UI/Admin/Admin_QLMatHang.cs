@@ -1,4 +1,5 @@
-﻿using CuaHangDienTu.UI.ChildForm;
+﻿using CuaHangDienTu.Models;
+using CuaHangDienTu.UI.ChildForm;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -18,16 +19,19 @@ namespace CuaHangDienTu.UI.Admin
         }
         public void load_Table()
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                DataTable dt = new DataTable();
-                SqlCommand cmd = new SqlCommand("Select * from vwDanhSachMatHangSanPham", con1);
-                cmd.CommandType = CommandType.Text;
-                con1.Open();
-                dt.Load(cmd.ExecuteReader());
-                con1.Close();
-                table_SP.DataSource = dt;
+                using (SqlConnection con = db.GetConnection())
+                {
+                    DataTable dt = new DataTable();
+                    SqlCommand cmd = new SqlCommand("Select * from vwDanhSachMatHangSanPham", con);
+                    cmd.CommandType = CommandType.Text;
+                    db.OpenConnection();
+                    dt.Load(cmd.ExecuteReader());
 
+                    table_SP.DataSource = dt;
+
+                }
             }
 
         }
@@ -43,13 +47,15 @@ namespace CuaHangDienTu.UI.Admin
 
         private void btn_Xoa_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                string id = table_SP.CurrentRow.Cells[0].Value.ToString();
-                SqlCommand cmd = new SqlCommand("", con1);
-                cmd.CommandType = CommandType.Text;
-                con1.Open();
-
+                using (SqlConnection con = db.GetConnection())
+                {
+                    string id = table_SP.CurrentRow.Cells[0].Value.ToString();
+                    SqlCommand cmd = new SqlCommand("", con);
+                    cmd.CommandType = CommandType.Text;
+                    db.OpenConnection();
+                }
 
             }
         }
@@ -96,36 +102,39 @@ namespace CuaHangDienTu.UI.Admin
         }
         private void CapNhatSP(string matHangId, string tenSP, string hinhAnh, int gia, int sl, int daban)
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            try
             {
-                try
+                using (DBConnection db = new DBConnection())
                 {
-                    con1.Open();
-                    using (SqlCommand cmd = new SqlCommand("spCapNhatMatHangSP", con1))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@MaMatHang", SqlDbType.VarChar, 10)).Value = matHangId;
-                        cmd.Parameters.Add(new SqlParameter("@Gia", SqlDbType.Int)).Value = gia;
-                        cmd.Parameters.Add(new SqlParameter("@SoLuongDaBan", SqlDbType.Int)).Value = daban;
-                        cmd.Parameters.Add(new SqlParameter("@SoLuongTrongKho", SqlDbType.Int)).Value = sl;
-                        cmd.Parameters.Add(new SqlParameter("@TenSanPham", SqlDbType.NVarChar, 50)).Value = tenSP;
-                        cmd.Parameters.Add(new SqlParameter("@HinhAnh", SqlDbType.NVarChar, 255)).Value = hinhAnh;
-                        cmd.ExecuteNonQuery();
-                        //Admin_QLKH.
-                        // If the execution didn't throw an exception, it was successful.
+                        db.OpenConnection();
+                        using (SqlCommand cmd = new SqlCommand("spCapNhatMatHangSP", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add(new SqlParameter("@MaMatHang", SqlDbType.VarChar, 10)).Value = matHangId;
+                            cmd.Parameters.Add(new SqlParameter("@Gia", SqlDbType.Int)).Value = gia;
+                            cmd.Parameters.Add(new SqlParameter("@SoLuongDaBan", SqlDbType.Int)).Value = daban;
+                            cmd.Parameters.Add(new SqlParameter("@SoLuongTrongKho", SqlDbType.Int)).Value = sl;
+                            cmd.Parameters.Add(new SqlParameter("@TenSanPham", SqlDbType.NVarChar, 50)).Value = tenSP;
+                            cmd.Parameters.Add(new SqlParameter("@HinhAnh", SqlDbType.NVarChar, 255)).Value = hinhAnh;
+                            cmd.ExecuteNonQuery();
+                            //Admin_QLKH.
+                            // If the execution didn't throw an exception, it was successful.
 
-                        MessageBox.Show("Update successful");
-                        load_Table();
+                            MessageBox.Show("Update successful");
+                            load_Table();
+                        }
                     }
-                    con1.Close();
-                }
-                catch (Exception ex)
-                {
-                    // Handle the exception (e.g., display an error message).
-                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
+            catch (Exception ex)
+            {
+                // Handle the exception (e.g., display an error message).
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
         }
+
 
         private void btn_Update_Click(object sender, EventArgs e)
         {

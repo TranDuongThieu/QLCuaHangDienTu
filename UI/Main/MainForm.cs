@@ -54,9 +54,9 @@ namespace CuaHangDienTu.UI.Main
 
         private void btn__logout_Click(object sender, EventArgs e)
         {
-            this.CloseForm();
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
+            //this.CloseForm();
+            //LoginForm loginForm = new LoginForm();
+            //loginForm.Show();
         }
 
         private void tabPage1_Click(object sender, EventArgs e)

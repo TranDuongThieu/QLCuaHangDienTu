@@ -26,17 +26,22 @@ namespace CuaHangDienTu.UI.Admin
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM vwTenChiNhanh", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            while (reader.Read())
+                            using (SqlCommand command = new SqlCommand("SELECT * FROM vwTenChiNhanh", con))
                             {
-                                string tenChiNhanh = reader.GetString("TenChiNhanh");
-                                departmentNames.Add(tenChiNhanh);
+                                db.OpenConnection();
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string tenChiNhanh = reader.GetString("TenChiNhanh");
+                                        departmentNames.Add(tenChiNhanh);
+                                    }
+                                }
                             }
                         }
                     }
@@ -65,32 +70,37 @@ namespace CuaHangDienTu.UI.Admin
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM vwLayTatCaNhaCungCap", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("SELECT * FROM vwLayTatCaNhaCungCap", con))
                         {
-                            while (reader.Read())
+                            con.Open();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                string maNCC = reader.GetString("MaNCC");
-                                string tenNCC = reader.GetString("TenNCC");
-                                string diachi = reader.GetString("DiaChi");
-                                string soDienThoai = reader.GetString("SoDienThoai");
+                                while (reader.Read())
+                                {
+                                    string maNCC = reader.GetString("MaNCC");
+                                    string tenNCC = reader.GetString("TenNCC");
+                                    string diachi = reader.GetString("DiaChi");
+                                    string soDienThoai = reader.GetString("SoDienThoai");
 
-                                Distributor distributor = new Distributor();
-                                distributor.DistributorId = maNCC;
-                                distributor.DistributorName = tenNCC;
-                                distributor.DistributorAddress = diachi;
-                                distributor.DistributorPhone = soDienThoai;
+                                    Distributor distributor = new Distributor();
+                                    distributor.DistributorId = maNCC;
+                                    distributor.DistributorName = tenNCC;
+                                    distributor.DistributorAddress = diachi;
+                                    distributor.DistributorPhone = soDienThoai;
 
-                                distributors.Add(distributor);
+                                    distributors.Add(distributor);
+                                }
                             }
                         }
                     }
                 }
+
             }
+
             catch (SqlException ex)
             {
                 MessageBox.Show("Lỗi lấy nhà cung cấp: " + ex.Message);
@@ -114,30 +124,33 @@ namespace CuaHangDienTu.UI.Admin
             List<ImportOrderModel> importOrders = new List<ImportOrderModel>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT * FROM vwLayTatCaDonNhapHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("SELECT * FROM vwLayTatCaDonNhapHang", con))
                         {
-                            while (reader.Read())
+                            db.OpenConnection();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                string maDNH = reader["MaDNN"].ToString();
-                                string maNhaCungCap = reader["MaNCC"].ToString();
-                                string maChiNhanh = reader["MaCN"].ToString();
-                                int tongGiaTri = reader.GetInt32("TongGiaTri");
-                                DateTime ngayNhapHang = reader.GetDateTime("NgayNhapHang");
+                                while (reader.Read())
+                                {
+                                    string maDNH = reader["MaDNN"].ToString();
+                                    string maNhaCungCap = reader["MaNCC"].ToString();
+                                    string maChiNhanh = reader["MaCN"].ToString();
+                                    int tongGiaTri = reader.GetInt32("TongGiaTri");
+                                    DateTime ngayNhapHang = reader.GetDateTime("NgayNhapHang");
 
 
-                                ImportOrderModel importOrder = new ImportOrderModel();
-                                importOrder.ImportOrderId = maDNH;
-                                importOrder.DistributorId = maNhaCungCap;
-                                importOrder.DepartmentId = maChiNhanh;
-                                importOrder.TotalValue = tongGiaTri;
-                                importOrder.CreatedDate = ngayNhapHang;
+                                    ImportOrderModel importOrder = new ImportOrderModel();
+                                    importOrder.ImportOrderId = maDNH;
+                                    importOrder.DistributorId = maNhaCungCap;
+                                    importOrder.DepartmentId = maChiNhanh;
+                                    importOrder.TotalValue = tongGiaTri;
+                                    importOrder.CreatedDate = ngayNhapHang;
 
-                                importOrders.Add(importOrder);
+                                    importOrders.Add(importOrder);
+                                }
                             }
                         }
                     }
@@ -155,13 +168,16 @@ namespace CuaHangDienTu.UI.Admin
             string maChiNhanh = null;
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaChiNhanhTuTenChiNhanh(@TenChiNhanh)", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.AddWithValue("@TenChiNhanh", deparmentName);
-                        connection.Open();
-                        maChiNhanh = (string)command.ExecuteScalar();
+                        using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaChiNhanhTuTenChiNhanh(@TenChiNhanh)", con))
+                        {
+                            command.Parameters.AddWithValue("@TenChiNhanh", deparmentName);
+                            db.OpenConnection();
+                            maChiNhanh = (string)command.ExecuteScalar();
+                        }
                     }
                 }
             }
@@ -177,13 +193,16 @@ namespace CuaHangDienTu.UI.Admin
             string maNCC = null;
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaNhaCungCapTuTenNhaCungCap(@TenNCC)", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.AddWithValue("@TenNCC", distributorName);
-                        connection.Open();
-                        maNCC = (string)command.ExecuteScalar();
+                        using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaNhaCungCapTuTenNhaCungCap(@TenNCC)", con))
+                        {
+                            command.Parameters.AddWithValue("@TenNCC", distributorName);
+                            db.OpenConnection();
+                            maNCC = (string)command.ExecuteScalar();
+                        }
                     }
                 }
             }
@@ -238,16 +257,19 @@ namespace CuaHangDienTu.UI.Admin
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spXoaDonNhapHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MaDNH", importOrderId);
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        UpdateImportOrderDataGridView();
-                        UpdateImportOrderDetailsPanel();
+                        using (SqlCommand command = new SqlCommand("spXoaDonNhapHang", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@MaDNH", importOrderId);
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            UpdateImportOrderDataGridView();
+                            UpdateImportOrderDetailsPanel();
+                        }
                     }
                 }
             }
@@ -275,31 +297,33 @@ namespace CuaHangDienTu.UI.Admin
         private void CreateImportOrder(string maNCC, string maChiNhanh)
         {
             string maDNH = "DNH" + GenerateRandomID(7); // Tạo mã đơn hàng ngẫu nhiên
-            // Thực hiện kết nối đến cơ sở dữ liệu
+                                                        // Thực hiện kết nối đến cơ sở dữ liệu
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spTaoDonNhapHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("spTaoDonNhapHang", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        // Thêm các tham số cần thiết cho thủ tục
-                        command.Parameters.Add("@MaDNH", SqlDbType.NVarChar, 10).Value = maDNH;
-                        command.Parameters.Add("@TongGiaTri", SqlDbType.Int).Value = 0;
-                        command.Parameters.Add("@NgayNhapHang", SqlDbType.Date).Value = DateTime.Today; // Ngày hôm nay
-                        _currentImportOrderCreatedDate = DateTime.Today;
-                        command.Parameters.Add("@MaNCC", SqlDbType.NVarChar, 10).Value = maNCC;
-                        command.Parameters.Add("@MaCN", SqlDbType.NVarChar, 10).Value = maChiNhanh;
+                            // Thêm các tham số cần thiết cho thủ tục
+                            command.Parameters.Add("@MaDNH", SqlDbType.NVarChar, 10).Value = maDNH;
+                            command.Parameters.Add("@TongGiaTri", SqlDbType.Int).Value = 0;
+                            command.Parameters.Add("@NgayNhapHang", SqlDbType.Date).Value = DateTime.Today; // Ngày hôm nay
+                            _currentImportOrderCreatedDate = DateTime.Today;
+                            command.Parameters.Add("@MaNCC", SqlDbType.NVarChar, 10).Value = maNCC;
+                            command.Parameters.Add("@MaCN", SqlDbType.NVarChar, 10).Value = maChiNhanh;
 
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        UpdateImportOrderDataGridView();
-                        OpenAddImportOrderDetailsForm(maDNH);
-                        //_orderCreated = true;
-                        //toggleAddProducts();
-
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            UpdateImportOrderDataGridView();
+                            OpenAddImportOrderDetailsForm(maDNH);
+                            //_orderCreated = true;
+                            //toggleAddProducts();
+                        }
                     }
                 }
             }

@@ -14,25 +14,29 @@ namespace CuaHangDienTu.UI.Admin
         }
         string id, hoten, sodienthoai;
         int diem;
-
-        string sqlConnectionString = Properties.Settings.Default.connectionString;
         DataSet ds = new DataSet();
         SqlConnection conn = new SqlConnection();
         SqlCommand cmd = new SqlCommand();
         string sql;
         public void Load_Table_KH()
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+
+            using (DBConnection db = new DBConnection())
             {
-                DataTable dt = new DataTable();
-                SqlCommand cmd = new SqlCommand("Select * from KHACH_HANG", con1);
-                cmd.CommandType = CommandType.Text;
-                con1.Open();
-                dt.Load(cmd.ExecuteReader());
-                con1.Close();
-                dataGridView1.DataSource = dt;
+                using (SqlConnection con = db.GetConnection())
+                {
+                    DataTable dt = new DataTable();
+                    SqlCommand cmd = new SqlCommand("Select * from KHACH_HANG", con);
+                    cmd.CommandType = CommandType.Text;
+                    db.OpenConnection();
+                    dt.Load(cmd.ExecuteReader());
+                    ;
+                    dataGridView1.DataSource = dt;
+                }
             }
         }
+
+
         private void Admin_QLKH_Load(object sender, EventArgs e)
         {
             Load_Table_KH();
@@ -67,23 +71,26 @@ namespace CuaHangDienTu.UI.Admin
         {
             try
             {
-                using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    con1.Open();
-
-                    using (SqlCommand cmd = new SqlCommand("spXoaKH", con1))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
 
-                        // Thêm tham số đầu vào cho thủ tục
-                        cmd.Parameters.Add("@MaKH", SqlDbType.NVarChar, 10).Value = id;
+                        using (SqlCommand cmd = new SqlCommand("spXoaKH", con))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
 
-                        // Thực thi thủ tục
-                        cmd.ExecuteNonQuery();
+                            // Thêm tham số đầu vào cho thủ tục
+                            cmd.Parameters.Add("@MaKH", SqlDbType.NVarChar, 10).Value = id;
+
+                            // Thực thi thủ tục
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    MessageBox.Show("Xóa khách hàng thành công!");
+                    Load_Table_KH();
                 }
-                MessageBox.Show("Xóa khách hàng thành công!");
-                Load_Table_KH();
             }
             catch (Exception ex)
             {
@@ -117,22 +124,25 @@ namespace CuaHangDienTu.UI.Admin
         {
             DataTable resultTable = new DataTable();
 
-            using (SqlConnection con = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                con.Open();
-
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM timKiemKhachHang(@HoTenKH)", con))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    cmd.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = tenKH;
+                    con.Open();
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM timKiemKhachHang(@HoTenKH)", con))
                     {
-                        adapter.Fill(resultTable);
+                        cmd.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = tenKH;
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(resultTable);
+                        }
                     }
                 }
-            }
 
-            dataGridView1.DataSource = resultTable;
+                dataGridView1.DataSource = resultTable;
+            }
         }
 
 

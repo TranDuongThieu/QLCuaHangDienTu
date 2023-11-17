@@ -24,33 +24,35 @@ namespace CuaHangDienTu.UI.Product
             this.maDanhMucCha = maDanhMucCha;
             this.maDanhMucCon = maDanhMucCon;
         }
-        string sqlConnectionString = Properties.Settings.Default.connectionString;
         public List<ProductModel> getListSanPham()
         {
             List<ProductModel> productList = new List<ProductModel>();
-            using (SqlConnection con = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                con.Open();
-
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMatHangTuMaDanhMuc(@InputMaDanhMuc)", con))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@InputMaDanhMuc", maDanhMucCon);
+                    db.OpenConnection();
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMatHangTuMaDanhMuc(@InputMaDanhMuc)", con))
                     {
-                        while (reader.Read())
+                        cmd.Parameters.AddWithValue("@InputMaDanhMuc", maDanhMucCon);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            string maMatHang = reader["MaMatHangSP"].ToString();
-                            string maSP = reader["MaSP"].ToString();
-                            string tenSP = reader["TenSP"].ToString();
-                            int gia = Convert.ToInt32(reader["Gia"]);
-                            string hinhAnh = reader["HinhAnhSP"].ToString();
-                            int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
-                            int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
-                            int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
-                            string mota = reader["MoTaSP"].ToString();
-                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
-                            productList.Add(product);
+                            while (reader.Read())
+                            {
+                                string maMatHang = reader["MaMatHangSP"].ToString();
+                                string maSP = reader["MaSP"].ToString();
+                                string tenSP = reader["TenSP"].ToString();
+                                int gia = Convert.ToInt32(reader["Gia"]);
+                                string hinhAnh = reader["HinhAnhSP"].ToString();
+                                int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
+                                int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
+                                int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
+                                string mota = reader["MoTaSP"].ToString();
+                                ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
+                                productList.Add(product);
+                            }
                         }
                     }
                 }
@@ -60,66 +62,70 @@ namespace CuaHangDienTu.UI.Product
         }
         private List<string> getThongSo(string MaLoaiThongSo)
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                // Construct the SQL query using a parameterized query to prevent SQL injection
-                string sqlQuery = "SELECT GiaTriThongSo FROM THONG_SO_KI_THUAT WHERE MaLoaiThongSo = @MaLoaiThongSo";
-                SqlCommand cmd = new SqlCommand(sqlQuery, con1);
-                cmd.Parameters.AddWithValue("@MaLoaiThongSo", MaLoaiThongSo);
-
-                con1.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                List<string> danhMucList = new List<string>();
-
-                // Read the values and add them to the list
-                while (reader.Read())
+                using (SqlConnection con = db.GetConnection())
                 {
-                    danhMucList.Add(reader["GiaTriThongSo"].ToString());
-                }
-                con1.Close();
-                return danhMucList;
-            }
+                    // Construct the SQL query using a parameterized query to prevent SQL injection
+                    string sqlQuery = "SELECT GiaTriThongSo FROM THONG_SO_KI_THUAT WHERE MaLoaiThongSo = @MaLoaiThongSo";
+                    SqlCommand cmd = new SqlCommand(sqlQuery, con);
+                    cmd.Parameters.AddWithValue("@MaLoaiThongSo", MaLoaiThongSo);
 
+                    db.OpenConnection();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<string> danhMucList = new List<string>();
+
+                    // Read the values and add them to the list
+                    while (reader.Read())
+                    {
+                        danhMucList.Add(reader["GiaTriThongSo"].ToString());
+                    }
+                    return danhMucList;
+                }
+            }
         }
 
         private void setComboBoxThongSo(string madanhmuccha)
         {
-            using (SqlConnection con2 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                // Construct the SQL query using a parameterized query to prevent SQL injection
-                string sqlQuery2 = "SELECT MaLoaiThongSo FROM LoaiThongSoDanhMuc WHERE MaDanhMuc = @madanhmuccha";
-                SqlCommand cmd2 = new SqlCommand(sqlQuery2, con2);
-                cmd2.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
-                con2.Open();
-                SqlDataReader reader = cmd2.ExecuteReader();
-                List<string> thongSoList = new List<string>();
-                while (reader.Read())
+                using (SqlConnection con = db.GetConnection())
                 {
-                    thongSoList.Add(reader["MaLoaiThongSo"].ToString());
+                    // Construct the SQL query using a parameterized query to prevent SQL injection
+                    string sqlQuery2 = "SELECT MaLoaiThongSo FROM LoaiThongSoDanhMuc WHERE MaDanhMuc = @madanhmuccha";
+                    SqlCommand cmd2 = new SqlCommand(sqlQuery2, con);
+                    cmd2.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
+                    db.OpenConnection();
+                    SqlDataReader reader = cmd2.ExecuteReader();
+                    List<string> thongSoList = new List<string>();
+                    while (reader.Read())
+                    {
+                        thongSoList.Add(reader["MaLoaiThongSo"].ToString());
+                    }
+                    thongSoList.ForEach(thongso =>
+                    {
+                        Label label = new Label();
+                        label.Text = thongso.ToUpper();
+                        label.Location = new Point(10, 10);
+
+                        Guna2ComboBox combobox = new Guna2ComboBox();
+                        List<string> giatrithongso = getThongSo(thongso);
+                        combobox.DataSource = giatrithongso;
+                        combobox.Location = new Point(110, 10);
+
+
+                        label.Width = 100; // Set width as needed
+                        combobox.Width = 300;
+
+                        Panel panel = new Panel();
+                        panel.Controls.Add(label);
+                        panel.Controls.Add(combobox);
+
+                        flowPanel.Controls.Add(panel);
+                    });
                 }
-                thongSoList.ForEach(thongso =>
-                {
-                    Label label = new Label();
-                    label.Text = thongso.ToUpper();
-                    label.Location = new Point(10, 10);
-
-                    Guna2ComboBox combobox = new Guna2ComboBox();
-                    List<string> giatrithongso = getThongSo(thongso);
-                    combobox.DataSource = giatrithongso;
-                    combobox.Location = new Point(110, 10);
-
-
-                    label.Width = 100; // Set width as needed
-                    combobox.Width = 300;
-
-                    Panel panel = new Panel();
-                    panel.Controls.Add(label);
-                    panel.Controls.Add(combobox);
-
-                    flowPanel.Controls.Add(panel);
-                });
             }
         }
 
@@ -145,33 +151,35 @@ namespace CuaHangDienTu.UI.Product
         public List<ProductModel> getSanPhamTuTen(string name)
         {
             List<ProductModel> productList = new List<ProductModel>();
-            using (SqlConnection con = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                con.Open();
-
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMatHangTuTenSP(@TenSP,@InputMaDanhMuc)", con))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    cmd.Parameters.AddWithValue("@TenSP", name);
-                    cmd.Parameters.AddWithValue("@InputMaDanhMuc", maDanhMucCon);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    db.OpenConnection();
+
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMatHangTuTenSP(@TenSP,@InputMaDanhMuc)", con))
                     {
-                        while (reader.Read())
+                        cmd.Parameters.AddWithValue("@TenSP", name);
+                        cmd.Parameters.AddWithValue("@InputMaDanhMuc", maDanhMucCon);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            string maMatHang = reader["MaMatHangSP"].ToString();
-                            string maSP = reader["MaSP"].ToString();
-                            string tenSP = reader["TenSP"].ToString();
-                            int gia = Convert.ToInt32(reader["Gia"]);
-                            string hinhAnh = reader["HinhAnhSP"].ToString();
-                            int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
-                            int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
-                            int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
-                            string mota = reader["MoTaSP"].ToString();
-                            ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
-                            productList.Add(product);
+                            while (reader.Read())
+                            {
+                                string maMatHang = reader["MaMatHangSP"].ToString();
+                                string maSP = reader["MaSP"].ToString();
+                                string tenSP = reader["TenSP"].ToString();
+                                int gia = Convert.ToInt32(reader["Gia"]);
+                                string hinhAnh = reader["HinhAnhSP"].ToString();
+                                int soLuong = Convert.ToInt32(reader["SoLuongTrongKho"]);
+                                int daBan = Convert.ToInt32(reader["SoLuongDaBan"]);
+                                int thoiHanBaoHanh = Convert.ToInt32(reader["ThoiHanBaoHanh"]);
+                                string mota = reader["MoTaSP"].ToString();
+                                ProductModel product = new ProductModel(maMatHang, maSP, tenSP, gia, hinhAnh, soLuong, daBan, thoiHanBaoHanh, mota);
+                                productList.Add(product);
+                            }
                         }
                     }
                 }
-
             }
             return productList;
         }
