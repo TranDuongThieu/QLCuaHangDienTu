@@ -58,7 +58,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1012, 440);
+            button1.Location = new Point(1030, 516);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 42;
@@ -69,7 +69,7 @@
             // filename
             // 
             filename.AutoSize = true;
-            filename.Location = new Point(1130, 445);
+            filename.Location = new Point(1148, 521);
             filename.Name = "filename";
             filename.Size = new Size(79, 25);
             filename.TabIndex = 41;
@@ -96,7 +96,7 @@
             // btn_Xoa
             // 
             btn_Xoa.BackColor = Color.Red;
-            btn_Xoa.Location = new Point(1406, 670);
+            btn_Xoa.Location = new Point(1424, 746);
             btn_Xoa.Name = "btn_Xoa";
             btn_Xoa.Size = new Size(143, 50);
             btn_Xoa.TabIndex = 39;
@@ -107,7 +107,7 @@
             // btn_Update
             // 
             btn_Update.BackColor = Color.Lime;
-            btn_Update.Location = new Point(1180, 670);
+            btn_Update.Location = new Point(1198, 746);
             btn_Update.Name = "btn_Update";
             btn_Update.Size = new Size(143, 50);
             btn_Update.TabIndex = 38;
@@ -117,28 +117,28 @@
             // 
             // txt_DaBan
             // 
-            txt_DaBan.Location = new Point(1459, 613);
+            txt_DaBan.Location = new Point(1477, 689);
             txt_DaBan.Name = "txt_DaBan";
             txt_DaBan.Size = new Size(161, 31);
             txt_DaBan.TabIndex = 37;
             // 
             // txt_SL
             // 
-            txt_SL.Location = new Point(1181, 613);
+            txt_SL.Location = new Point(1199, 689);
             txt_SL.Name = "txt_SL";
             txt_SL.Size = new Size(153, 31);
             txt_SL.TabIndex = 36;
             // 
             // txt_Gia
             // 
-            txt_Gia.Location = new Point(1181, 562);
+            txt_Gia.Location = new Point(1199, 638);
             txt_Gia.Name = "txt_Gia";
             txt_Gia.Size = new Size(182, 31);
             txt_Gia.TabIndex = 35;
             // 
             // txt_Ten
             // 
-            txt_Ten.Location = new Point(1181, 512);
+            txt_Ten.Location = new Point(1199, 588);
             txt_Ten.Name = "txt_Ten";
             txt_Ten.ReadOnly = true;
             txt_Ten.Size = new Size(439, 31);
@@ -147,16 +147,17 @@
             // pic_SanPham
             // 
             pic_SanPham.BorderStyle = BorderStyle.Fixed3D;
-            pic_SanPham.Location = new Point(1015, 160);
+            pic_SanPham.Location = new Point(1081, 154);
             pic_SanPham.Name = "pic_SanPham";
-            pic_SanPham.Size = new Size(605, 273);
+            pic_SanPham.Size = new Size(484, 341);
+            pic_SanPham.SizeMode = PictureBoxSizeMode.StretchImage;
             pic_SanPham.TabIndex = 33;
             pic_SanPham.TabStop = false;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1370, 619);
+            label5.Location = new Point(1388, 695);
             label5.Name = "label5";
             label5.Size = new Size(83, 25);
             label5.TabIndex = 32;
@@ -165,7 +166,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1063, 613);
+            label4.Location = new Point(1081, 689);
             label4.Name = "label4";
             label4.Size = new Size(103, 25);
             label4.TabIndex = 31;
@@ -174,7 +175,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(1120, 562);
+            label3.Location = new Point(1138, 638);
             label3.Name = "label3";
             label3.Size = new Size(46, 25);
             label3.TabIndex = 30;
@@ -183,7 +184,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(1035, 515);
+            label2.Location = new Point(1053, 591);
             label2.Name = "label2";
             label2.Size = new Size(131, 25);
             label2.TabIndex = 29;

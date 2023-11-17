@@ -74,7 +74,7 @@
             guna2ComboBox1.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox1.ItemHeight = 30;
             guna2ComboBox1.Items.AddRange(new object[] { "Laptop", "Điện thoại", "Máy tính bảng" });
-            guna2ComboBox1.Location = new Point(278, 100);
+            guna2ComboBox1.Location = new Point(233, 100);
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2ComboBox1.Size = new Size(210, 36);
@@ -84,7 +84,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(91, 111);
+            label1.Location = new Point(73, 111);
             label1.Name = "label1";
             label1.Size = new Size(102, 25);
             label1.TabIndex = 1;
@@ -93,7 +93,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(538, 111);
+            label2.Location = new Point(680, 111);
             label2.Name = "label2";
             label2.Size = new Size(124, 25);
             label2.TabIndex = 3;
@@ -110,7 +110,7 @@
             guna2ComboBox2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             guna2ComboBox2.ForeColor = Color.FromArgb(68, 88, 112);
             guna2ComboBox2.ItemHeight = 30;
-            guna2ComboBox2.Location = new Point(677, 100);
+            guna2ComboBox2.Location = new Point(819, 100);
             guna2ComboBox2.Name = "guna2ComboBox2";
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2ComboBox2.Size = new Size(314, 36);
@@ -128,7 +128,7 @@
             txt_name.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txt_name.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             txt_name.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            txt_name.Location = new Point(278, 173);
+            txt_name.Location = new Point(233, 173);
             txt_name.Margin = new Padding(4, 5, 4, 5);
             txt_name.Name = "txt_name";
             txt_name.PasswordChar = '\0';
@@ -141,7 +141,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(91, 191);
+            label3.Location = new Point(73, 191);
             label3.Name = "label3";
             label3.Size = new Size(136, 25);
             label3.TabIndex = 5;
@@ -150,7 +150,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(519, 381);
+            label4.Location = new Point(584, 381);
             label4.Name = "label4";
             label4.Size = new Size(76, 25);
             label4.TabIndex = 6;
@@ -159,7 +159,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(81, 333);
+            label5.Location = new Point(74, 333);
             label5.Name = "label5";
             label5.Size = new Size(169, 25);
             label5.TabIndex = 8;
@@ -168,7 +168,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(484, 336);
+            label6.Location = new Point(477, 336);
             label6.Name = "label6";
             label6.Size = new Size(78, 25);
             label6.TabIndex = 9;
@@ -176,7 +176,7 @@
             // 
             // txt_baohanh
             // 
-            txt_baohanh.Location = new Point(269, 330);
+            txt_baohanh.Location = new Point(262, 330);
             txt_baohanh.Name = "txt_baohanh";
             txt_baohanh.Size = new Size(209, 31);
             txt_baohanh.TabIndex = 10;
@@ -184,7 +184,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(640, 336);
+            label7.Location = new Point(733, 336);
             label7.Name = "label7";
             label7.Size = new Size(98, 25);
             label7.TabIndex = 11;
@@ -192,7 +192,7 @@
             // 
             // txt_soluong
             // 
-            txt_soluong.Location = new Point(754, 333);
+            txt_soluong.Location = new Point(847, 333);
             txt_soluong.Name = "txt_soluong";
             txt_soluong.Size = new Size(227, 31);
             txt_soluong.TabIndex = 12;
@@ -200,7 +200,7 @@
             // pictureBox1
             // 
             pictureBox1.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox1.Location = new Point(52, 418);
+            pictureBox1.Location = new Point(117, 418);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(387, 279);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -214,7 +214,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(52, 381);
+            label8.Location = new Point(117, 381);
             label8.Name = "label8";
             label8.Size = new Size(86, 25);
             label8.TabIndex = 14;
@@ -223,7 +223,7 @@
             // btn_themAnh
             // 
             btn_themAnh.BackColor = SystemColors.ActiveCaption;
-            btn_themAnh.Location = new Point(52, 745);
+            btn_themAnh.Location = new Point(114, 745);
             btn_themAnh.Name = "btn_themAnh";
             btn_themAnh.Size = new Size(121, 37);
             btn_themAnh.TabIndex = 15;
@@ -235,7 +235,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(91, 9);
+            label9.Location = new Point(352, 9);
             label9.Name = "label9";
             label9.Size = new Size(592, 54);
             label9.TabIndex = 16;
@@ -251,7 +251,7 @@
             btn_addSP.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btn_addSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             btn_addSP.ForeColor = Color.White;
-            btn_addSP.Location = new Point(392, 776);
+            btn_addSP.Location = new Point(454, 776);
             btn_addSP.Name = "btn_addSP";
             btn_addSP.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btn_addSP.Size = new Size(270, 68);
@@ -261,14 +261,14 @@
             // 
             // panel_thongso
             // 
-            panel_thongso.Location = new Point(91, 244);
+            panel_thongso.Location = new Point(73, 244);
             panel_thongso.Name = "panel_thongso";
-            panel_thongso.Size = new Size(893, 58);
+            panel_thongso.Size = new Size(1072, 58);
             panel_thongso.TabIndex = 18;
             // 
             // txt_mota
             // 
-            txt_mota.Location = new Point(519, 418);
+            txt_mota.Location = new Point(586, 418);
             txt_mota.Name = "txt_mota";
             txt_mota.Size = new Size(488, 279);
             txt_mota.TabIndex = 19;
@@ -277,7 +277,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(702, 191);
+            label10.Location = new Point(767, 191);
             label10.Name = "label10";
             label10.Size = new Size(46, 25);
             label10.TabIndex = 20;
@@ -285,7 +285,7 @@
             // 
             // txt_gia
             // 
-            txt_gia.Location = new Point(754, 185);
+            txt_gia.Location = new Point(819, 185);
             txt_gia.Name = "txt_gia";
             txt_gia.Size = new Size(227, 31);
             txt_gia.TabIndex = 21;
@@ -293,7 +293,7 @@
             // filename
             // 
             filename.AutoSize = true;
-            filename.Location = new Point(53, 706);
+            filename.Location = new Point(118, 706);
             filename.Name = "filename";
             filename.Size = new Size(87, 25);
             filename.TabIndex = 22;
@@ -303,7 +303,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1105, 908);
+            ClientSize = new Size(1187, 908);
             Controls.Add(filename);
             Controls.Add(txt_gia);
             Controls.Add(label10);

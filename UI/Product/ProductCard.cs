@@ -54,5 +54,11 @@ namespace CuaHangDienTu.UI.Product
         {
 
         }
+
+        private void productDetailsButton_Click(object sender, EventArgs e)
+        {
+            DetailProduct detailProduct = new DetailProduct(product);
+            detailProduct.Show();
+        }
     }
 }

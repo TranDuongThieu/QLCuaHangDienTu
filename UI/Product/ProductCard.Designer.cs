@@ -65,6 +65,7 @@
             pic_product.Margin = new Padding(4, 5, 4, 5);
             pic_product.Name = "pic_product";
             pic_product.Size = new Size(355, 335);
+            pic_product.SizeMode = PictureBoxSizeMode.StretchImage;
             pic_product.TabIndex = 5;
             pic_product.TabStop = false;
             // 

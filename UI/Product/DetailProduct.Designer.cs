@@ -55,14 +55,15 @@
             pictureBox1.Location = new Point(99, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(359, 301);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Location = new Point(12, 672);
+            flowLayoutPanel1.Location = new Point(12, 703);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(602, 82);
+            flowLayoutPanel1.Size = new Size(602, 131);
             flowLayoutPanel1.TabIndex = 6;
             // 
             // guna2Button2
@@ -94,7 +95,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(11, 635);
+            label4.Location = new Point(11, 659);
             label4.Name = "label4";
             label4.Size = new Size(165, 25);
             label4.TabIndex = 12;
@@ -153,9 +154,9 @@
             mota.BackColor = Color.White;
             mota.BorderStyle = BorderStyle.None;
             mota.Enabled = false;
-            mota.Location = new Point(12, 552);
+            mota.Location = new Point(12, 559);
             mota.Name = "mota";
-            mota.Size = new Size(602, 80);
+            mota.Size = new Size(602, 73);
             mota.TabIndex = 18;
             mota.Text = "";
             // 
