@@ -1,5 +1,4 @@
-using CuaHangDienTu.UI.Admin;
-using CuaHangDienTu.UI.Main;
+using CuaHangDienTu.UI.Login;
 
 namespace CuaHangDienTu
 {
@@ -17,7 +16,7 @@ namespace CuaHangDienTu
             SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new RealLoginForm());
         }
     }
 }

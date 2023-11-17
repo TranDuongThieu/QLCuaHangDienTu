@@ -254,6 +254,26 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             _orderCreated = false;
             toggleAddProducts();
+
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("spXoaDonHang", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
+                    }
+                }
+            }
+
         }
 
         private string GenerateRandomID(int length)
@@ -445,7 +465,6 @@ namespace CuaHangDienTu.UI.ChildForm
 
                         // Get the order details to delete.
                         var orderDetailsToDelete = _orderDetails.Where(od => od.OrderId == _currentOrderId && od.ProductItemId == e).FirstOrDefault();
-
                         // Delete the order details from the list.
                         _orderDetails.Remove(orderDetailsToDelete);
                         UpdateOrderDetailsPanel();
@@ -462,6 +481,35 @@ namespace CuaHangDienTu.UI.ChildForm
         private void button4_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (_currentOrderId == null)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                return;
+            }
+            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("spXoaDonHang", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        this.DialogResult = DialogResult.Cancel;
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
+                        this.DialogResult = DialogResult.Cancel;
+                    }
+                }
+            }
         }
     }
 }

@@ -2,17 +2,24 @@
 
 namespace CuaHangDienTu.UI.Order
 {
-    public partial class OrderDetailsControl : UserControl
+    public partial class OrderDetailsControl : UserControl, IDisposable
     {
         private OrderDetailsDTO _orderDetailsDTO;
         private Image productImage;
         public event EventHandler<string> OrderDetailsDeleted;
 
-        public OrderDetailsControl(OrderDetailsDTO orderDetailsDTO)
+        public OrderDetailsControl(OrderDetailsDTO orderDetailsDTO, bool canEdit = true)
         {
             InitializeComponent();
             _orderDetailsDTO = orderDetailsDTO;
             UpdateOrderDetailsControlDisplay();
+            if (!canEdit)
+            {
+                productQuantityTextbox.Enabled = false;
+                increaseQuantityButton.Visible = false;
+                decreaseQuantityButton.Visible = false;
+                deleteButton.Visible = false;
+            }
         }
 
         private void UpdateOrderDetailsControlDisplay()
@@ -39,6 +46,11 @@ namespace CuaHangDienTu.UI.Order
         private void deleteButton_Click(object sender, EventArgs e)
         {
             OrderDetailsDeleted?.Invoke(this, _orderDetailsDTO.ProductItemId);
+        }
+
+        public void Dispose()
+        {
+            OrderDetailsDeleted = null; // Unregister the event handler
         }
     }
 }
