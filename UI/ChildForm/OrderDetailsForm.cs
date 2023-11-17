@@ -47,43 +47,49 @@ namespace CuaHangDienTu.UI.ChildForm
             List<OrderDetailsDTO> details = new List<OrderDetailsDTO>();
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("GetChiTietDonHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MaDH", orderId);
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("GetChiTietDonHang", con))
                         {
-                            while (reader.Read())
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@MaDH", orderId);
+
+                            db.OpenConnection();
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                string maDH = reader["MaDH"].ToString();
-                                string maMatHangSP = reader["MaMatHangSP"].ToString();
-                                int soLuong = reader.GetInt32(reader.GetOrdinal("SoLuong"));
-                                using (SqlConnection connection2 = new SqlConnection(Properties.Settings.Default.connectionString))
+                                while (reader.Read())
                                 {
-                                    using (SqlCommand nestedCommand = new SqlCommand("spLayGiaSanPhamVaMoTa", connection2))
+                                    string maDH = reader["MaDH"].ToString();
+                                    string maMatHangSP = reader["MaMatHangSP"].ToString();
+                                    int soLuong = reader.GetInt32(reader.GetOrdinal("SoLuong"));
+                                    using (DBConnection db2 = new DBConnection())
                                     {
-                                        nestedCommand.CommandType = CommandType.StoredProcedure;
-                                        nestedCommand.Parameters.AddWithValue("@MaMatHangSP", maMatHangSP);
-                                        connection2.Open();
-                                        using (SqlDataReader nestedReader = nestedCommand.ExecuteReader())
+                                        using (SqlConnection con2 = db.GetConnection())
                                         {
-                                            if (nestedReader.Read())
+                                            using (SqlCommand nestedCommand = new SqlCommand("spLayGiaSanPhamVaMoTa", con2))
                                             {
-                                                int giaSP = nestedReader.GetInt32(nestedReader.GetOrdinal("Gia"));
-                                                string motaSP = nestedReader.GetString(nestedReader.GetOrdinal("MoTaSP"));
-                                                string tenSP = nestedReader.GetString(nestedReader.GetOrdinal("TenSP"));
-                                                OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
-                                                orderDetailsDTO.OrderId = orderId;
-                                                orderDetailsDTO.ProductItemId = maMatHangSP;
-                                                orderDetailsDTO.ProductDescription = motaSP;
-                                                orderDetailsDTO.ProductName = tenSP;
-                                                orderDetailsDTO.Quantity = soLuong;
-                                                orderDetailsDTO.Price = giaSP;
-                                                details.Add(orderDetailsDTO);
+                                                nestedCommand.CommandType = CommandType.StoredProcedure;
+                                                nestedCommand.Parameters.AddWithValue("@MaMatHangSP", maMatHangSP);
+                                                db2.OpenConnection();
+                                                using (SqlDataReader nestedReader = nestedCommand.ExecuteReader())
+                                                {
+                                                    if (nestedReader.Read())
+                                                    {
+                                                        int giaSP = nestedReader.GetInt32(nestedReader.GetOrdinal("Gia"));
+                                                        string motaSP = nestedReader.GetString(nestedReader.GetOrdinal("MoTaSP"));
+                                                        string tenSP = nestedReader.GetString(nestedReader.GetOrdinal("TenSP"));
+                                                        OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
+                                                        orderDetailsDTO.OrderId = orderId;
+                                                        orderDetailsDTO.ProductItemId = maMatHangSP;
+                                                        orderDetailsDTO.ProductDescription = motaSP;
+                                                        orderDetailsDTO.ProductName = tenSP;
+                                                        orderDetailsDTO.Quantity = soLuong;
+                                                        orderDetailsDTO.Price = giaSP;
+                                                        details.Add(orderDetailsDTO);
+                                                    }
+                                                }
                                             }
                                         }
                                     }

@@ -16,31 +16,34 @@ namespace CuaHangDienTu.UI.ImportOrder
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spXoaChiTietDonNhapHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add parameters
-                    command.Parameters.Add("@MaDNH", SqlDbType.VarChar, 10).Value = _importOrderDetail.ImportOrderId;
-                    command.Parameters.Add("@MaMatHangSP", SqlDbType.VarChar, 10).Value = _importOrderDetail.ProductItemId;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spXoaChiTietDonNhapHang", con))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Order details deleted successfully!");
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Get the order details to delete.
-                        //var orderDetailsToDelete = _orderDetails.Where(od => od.OrderId == _currentOrderId && od.ProductItemId == e).FirstOrDefault();
-                        // Delete the order details from the list.
-                        //_orderDetails.Remove(orderDetailsToDelete);
-                        //UpdateOrderDetailsPanel();
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show(ex.Message);
+                        // Add parameters
+                        command.Parameters.Add("@MaDNH", SqlDbType.VarChar, 10).Value = _importOrderDetail.ImportOrderId;
+                        command.Parameters.Add("@MaMatHangSP", SqlDbType.VarChar, 10).Value = _importOrderDetail.ProductItemId;
+
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            MessageBox.Show("Order details deleted successfully!");
+
+                            // Get the order details to delete.
+                            //var orderDetailsToDelete = _orderDetails.Where(od => od.OrderId == _currentOrderId && od.ProductItemId == e).FirstOrDefault();
+                            // Delete the order details from the list.
+                            //_orderDetails.Remove(orderDetailsToDelete);
+                            //UpdateOrderDetailsPanel();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
 
                 }

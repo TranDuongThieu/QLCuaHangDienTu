@@ -1,4 +1,5 @@
-﻿using CuaHangDienTu.UI.Admin;
+using CuaHangDienTu.Models;
+using CuaHangDienTu.UI.Admin;
 using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using System;
@@ -31,7 +32,6 @@ namespace CuaHangDienTu.UI.ChildForm
             InitializeComponent();
             this.adminQlspInstance = adminQlspInstance;
         }
-        string sqlConnectionString = Properties.Settings.Default.connectionString;
         string madanhmuc;
         List<string> madanhmuccon = new List<string>();
         private void guna2ComboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -58,95 +58,104 @@ namespace CuaHangDienTu.UI.ChildForm
 
         private void setThuongHieu(string madanhmuccha)
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                // Construct the SQL query using a parameterized query to prevent SQL injection
-                string sqlQuery = "SELECT MaDanhMuc, TenDanhMuc FROM DANH_MUC_SAN_PHAM WHERE MaDanhMucCha = @madanhmuccha";
-                SqlCommand cmd = new SqlCommand(sqlQuery, con1);
-                cmd.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
-
-                con1.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                List<string> danhMucList = new List<string>();
-
-                // Read the values and add them to the list
-                while (reader.Read())
+                using (SqlConnection con = db.GetConnection())
                 {
-                    danhMucList.Add(reader["TenDanhMuc"].ToString());
-                    madanhmuccon.Add(reader["MaDanhMuc"].ToString());
+                    // Construct the SQL query using a parameterized query to prevent SQL injection
+                    string sqlQuery = "SELECT MaDanhMuc, TenDanhMuc FROM DANH_MUC_SAN_PHAM WHERE MaDanhMucCha = @madanhmuccha";
+                    SqlCommand cmd = new SqlCommand(sqlQuery, con);
+                    cmd.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
+
+                    db.OpenConnection();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<string> danhMucList = new List<string>();
+
+                    // Read the values and add them to the list
+                    while (reader.Read())
+                    {
+                        danhMucList.Add(reader["TenDanhMuc"].ToString());
+                        madanhmuccon.Add(reader["MaDanhMuc"].ToString());
+                    }
+
+
+                    // Set the list as the data source for guna2ComboBox2
+                    guna2ComboBox2.DataSource = danhMucList;
                 }
-
-                con1.Close();
-
-                // Set the list as the data source for guna2ComboBox2
-                guna2ComboBox2.DataSource = danhMucList;
             }
         }
 
         private void setComboBoxThongSo(string madanhmuccha)
         {
-            using (SqlConnection con2 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                // Construct the SQL query using a parameterized query to prevent SQL injection
-                string sqlQuery2 = "SELECT MaLoaiThongSo FROM LoaiThongSoDanhMuc WHERE MaDanhMuc = @madanhmuccha";
-                SqlCommand cmd2 = new SqlCommand(sqlQuery2, con2);
-                cmd2.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
-                con2.Open();
-                SqlDataReader reader = cmd2.ExecuteReader();
-                List<string> thongSoList = new List<string>();
-                while (reader.Read())
+                using (SqlConnection con = db.GetConnection())
                 {
-                    thongSoList.Add(reader["MaLoaiThongSo"].ToString());
+                    // Construct the SQL query using a parameterized query to prevent SQL injection
+                    string sqlQuery2 = "SELECT MaLoaiThongSo FROM LoaiThongSoDanhMuc WHERE MaDanhMuc = @madanhmuccha";
+                    SqlCommand cmd2 = new SqlCommand(sqlQuery2, con);
+                    cmd2.Parameters.AddWithValue("@madanhmuccha", madanhmuccha);
+                    db.OpenConnection();
+                    SqlDataReader reader = cmd2.ExecuteReader();
+                    List<string> thongSoList = new List<string>();
+                    while (reader.Read())
+                    {
+                        thongSoList.Add(reader["MaLoaiThongSo"].ToString());
+                    }
+                    thongSoList.ForEach(thongso =>
+                    {
+                        Label label = new Label();
+                        label.Text = thongso.ToUpper();
+                        label.Location = new Point(10, 10);
+
+                        Guna2ComboBox combobox = new Guna2ComboBox();
+                        List<string> giatrithongso = getThongSo(thongso);
+                        combobox.DataSource = giatrithongso;
+                        combobox.Location = new Point(110, 10);
+
+                    CheckedListBox checkedList = new CheckedListBox();
+                    giatrithongso.ForEach(gi => { checkedList.Items.Add(gi.ToString()); });
+                    checkedList.Location = new Point(105, 10);
+
+                        label.Width = 100; // Set width as needed
+                        combobox.Width = 300;
+
+                        Panel panel = new Panel();
+                        panel.Controls.Add(label);
+                        panel.Controls.Add(combobox);
+
+                        panel_thongso.Controls.Add(panel);
+                    });
                 }
-                thongSoList.ForEach(thongso =>
-                {
-                    Label label = new Label();
-                    label.Text = thongso.ToUpper();
-                    label.Location = new Point(10, 10);
-
-                    Guna2ComboBox combobox = new Guna2ComboBox();
-                    List<string> giatrithongso = getThongSo(thongso);
-                    combobox.DataSource = giatrithongso;
-                    combobox.Location = new Point(110, 10);
-
-
-                    label.Width = 100; // Set width as needed
-                    combobox.Width = 300;
-
-                    Panel panel = new Panel();
-                    panel.Controls.Add(label);
-                    panel.Controls.Add(combobox);
-
-                    panel_thongso.Controls.Add(panel);
-                });
             }
         }
         private List<string> getThongSo(string MaLoaiThongSo)
         {
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                // Construct the SQL query using a parameterized query to prevent SQL injection
-                string sqlQuery = "SELECT GiaTriThongSo FROM THONG_SO_KI_THUAT WHERE MaLoaiThongSo = @MaLoaiThongSo";
-                SqlCommand cmd = new SqlCommand(sqlQuery, con1);
-                cmd.Parameters.AddWithValue("@MaLoaiThongSo", MaLoaiThongSo);
-
-                con1.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                List<string> danhMucList = new List<string>();
-
-                // Read the values and add them to the list
-                while (reader.Read())
+                using (SqlConnection con = db.GetConnection())
                 {
-                    danhMucList.Add(reader["GiaTriThongSo"].ToString());
-                }
-                con1.Close();
-                return danhMucList;
-            }
+                    // Construct the SQL query using a parameterized query to prevent SQL injection
+                    string sqlQuery = "SELECT GiaTriThongSo FROM THONG_SO_KI_THUAT WHERE MaLoaiThongSo = @MaLoaiThongSo";
+                    SqlCommand cmd = new SqlCommand(sqlQuery, con);
+                    cmd.Parameters.AddWithValue("@MaLoaiThongSo", MaLoaiThongSo);
 
+                    db.OpenConnection();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<string> danhMucList = new List<string>();
+
+                    // Read the values and add them to the list
+                    while (reader.Read())
+                    {
+                        danhMucList.Add(reader["GiaTriThongSo"].ToString());
+                    }
+                    return danhMucList;
+                }
+            }
         }
 
         private void btn_themAnh_Click(object sender, EventArgs e)
@@ -206,20 +215,33 @@ namespace CuaHangDienTu.UI.ChildForm
                 {
                     Panel panel = (Panel)panelControl;
 
-                    ThongSoKyThuat thongSo = new ThongSoKyThuat();
+
+                    string tenthongso = "";
                     foreach (Control control in panel.Controls)
                     {
                         if (control is Label)
                         {
-                            thongSo.maLoaiThongSo = control.Text.ToString().ToLower();
+                            tenthongso = control.Text.ToString().ToLower();
                         }
-                        if (control is Guna2ComboBox)
+                        //if (control is Guna2ComboBox)
+                        //{
+                        //    Guna2ComboBox combobox = (Guna2ComboBox)control;
+                        //    thongSo.giaTriThongSo = combobox.SelectedValue.ToString();
+                        //}
+                        if (control is CheckedListBox)
                         {
-                            Guna2ComboBox combobox = (Guna2ComboBox)control;
-                            thongSo.giaTriThongSo = combobox.SelectedValue.ToString();
+                            CheckedListBox checkedListBox = (CheckedListBox)control;
+                            foreach (var item in checkedListBox.CheckedItems)
+                            {
+                                ThongSoKyThuat thongSo = new ThongSoKyThuat();
+                                thongSo.maLoaiThongSo = tenthongso;
+                                thongSo.giaTriThongSo = item.ToString();
+                                listThongSo.Add(thongSo);
+
+                            }
                         }
                     }
-                    listThongSo.Add(thongSo);
+
                 }
             }
 
@@ -288,37 +310,40 @@ namespace CuaHangDienTu.UI.ChildForm
                 string spId = RandomIdGenerator.GenerateRandomId();
                 string matHangId = RandomIdGenerator.GenerateRandomId();
 
-                using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    con1.Open();
-
-                    SqlTransaction transaction = con1.BeginTransaction();
-
-                    try
+                    using (SqlConnection con1 = db.GetConnection())
                     {
-                        // Sử dụng SqlCommand để thực hiện các lệnh SQL trong giao dịch
-                        themSanPham(spId, tenSP, moTa, imgFileName, thoiHanBaoHanh, con1, transaction);
-                        themMatHang(matHangId, spId, Gia, soLuong, con1, transaction); ;
-                        themThongSoMatHang(matHangId, con1, transaction);
+                        db.OpenConnection();
+
+                        SqlTransaction transaction = con1.BeginTransaction();
+
+                        try
+                        {
+                            // Sử dụng SqlCommand để thực hiện các lệnh SQL trong giao dịch
+                            themSanPham(spId, tenSP, moTa, imgFileName, thoiHanBaoHanh, con1, transaction);
+                            themMatHang(matHangId, spId, Gia, soLuong, con1, transaction); ;
+                            themThongSoMatHang(matHangId, con1, transaction);
 
 
-                        // Nếu mọi thứ đều ổn, commit giao dịch
-                        transaction.Commit();
-                        MessageBox.Show("Inserted.");
-                        this.Hide();
-                        adminQlspInstance.load_Table();
+                            // Nếu mọi thứ đều ổn, commit giao dịch
+                            transaction.Commit();
+                            MessageBox.Show("Inserted.");
+                            this.Hide();
+                            adminQlspInstance.load_Table();
+                        }
+                        catch (Exception ex)
+                        {
+                            // Nếu có lỗi, rollback giao dịch
+                            transaction.Rollback();
+                            MessageBox.Show("Transaction rolled back. Reason: " + ex.Message);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        // Nếu có lỗi, rollback giao dịch
-                        transaction.Rollback();
-                        MessageBox.Show("Transaction rolled back. Reason: " + ex.Message);
-                    }
-
                 }
-
             }
+
         }
+
 
         private void ThemMatHangForm_Load(object sender, EventArgs e)
         {

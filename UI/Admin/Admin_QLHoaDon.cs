@@ -45,22 +45,25 @@ namespace CuaHangDienTu.UI.Admin
         {
             List<OrderDTO> orderDTOs = new List<OrderDTO>();
 
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM vwTatCaDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM vwTatCaDonHang", con))
                     {
-                        OrderDTO orderDTO = new OrderDTO();
-                        orderDTO.OrderId = reader["MaDH"].ToString();
-                        orderDTO.CustomerName = reader["TenKhachHang"].ToString();
-                        orderDTO.DepartmentName = reader["TenChiNhanh"].ToString();
-                        orderDTO.TotalValue = int.Parse(reader["TongGiaTri"].ToString());
-                        orderDTO.CreatedDate = reader.GetDateTime(reader.GetOrdinal("NgayDatHang"));
-                        orderDTOs.Add(orderDTO);
+                        db.OpenConnection();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            OrderDTO orderDTO = new OrderDTO();
+                            orderDTO.OrderId = reader["MaDH"].ToString();
+                            orderDTO.CustomerName = reader["TenKhachHang"].ToString();
+                            orderDTO.DepartmentName = reader["TenChiNhanh"].ToString();
+                            orderDTO.TotalValue = int.Parse(reader["TongGiaTri"].ToString());
+                            orderDTO.CreatedDate = reader.GetDateTime(reader.GetOrdinal("NgayDatHang"));
+                            orderDTOs.Add(orderDTO);
+                        }
                     }
                 }
             }

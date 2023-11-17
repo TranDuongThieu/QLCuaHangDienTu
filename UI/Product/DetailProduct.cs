@@ -41,31 +41,34 @@ namespace CuaHangDienTu.UI.Product
         {
             List<ThongSo> listThongSo = new List<ThongSo>();
 
-            using (SqlConnection con = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                con.Open();
-
-                string query = "SELECT * FROM dbo.layThongSoMatHangTuMaMatHang(@MaMatHangSP)";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    // Thêm tham số cho hàm
-                    cmd.Parameters.AddWithValue("@MaMatHangSP", maMatHangSP);
+                    db.OpenConnection();
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    string query = "SELECT * FROM dbo.layThongSoMatHangTuMaMatHang(@MaMatHangSP)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        while (reader.Read())
+                        // Thêm tham số cho hàm
+                        cmd.Parameters.AddWithValue("@MaMatHangSP", maMatHangSP);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            string maThongSo = reader["MaThongSoKiThuat"].ToString();
-                            string loaiThongSo = reader["MaLoaiThongSo"].ToString();
-                            string giaTriThongSo = reader["GiaTriThongSo"].ToString();
-                            ThongSo thongso = new ThongSo(maThongSo, loaiThongSo, giaTriThongSo);
-                            listThongSo.Add(thongso);
+                            while (reader.Read())
+                            {
+                                string maThongSo = reader["MaThongSoKiThuat"].ToString();
+                                string loaiThongSo = reader["MaLoaiThongSo"].ToString();
+                                string giaTriThongSo = reader["GiaTriThongSo"].ToString();
+                                ThongSo thongso = new ThongSo(maThongSo, loaiThongSo, giaTriThongSo);
+                                listThongSo.Add(thongso);
+                            }
                         }
                     }
-                }
 
-                return listThongSo;
+                    return listThongSo;
+                }
             }
         }
 

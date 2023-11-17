@@ -27,29 +27,31 @@ namespace CuaHangDienTu.UI.Product
         private List<DanhMuc> getMaDanhMuc()
         {
             List<DanhMuc> listMaDanhMuc = new List<DanhMuc>();
-            using (SqlConnection con1 = new SqlConnection(sqlConnectionString))
+            using (DBConnection db = new DBConnection())
             {
-                con1.Open();
-
-                // Create a SqlCommand object to execute the function
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMaDanhMucTuDanhMucCha(@InputMaDanhMuc)", con1))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    // Add the input parameter to the command
-                    cmd.Parameters.AddWithValue("@InputMaDanhMuc", madanhmuc);
+                    db.OpenConnection();
 
-                    // Execute the command and retrieve the results
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    // Create a SqlCommand object to execute the function
+                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.LayMaDanhMucTuDanhMucCha(@InputMaDanhMuc)", con))
                     {
-                        while (reader.Read())
+                        // Add the input parameter to the command
+                        cmd.Parameters.AddWithValue("@InputMaDanhMuc", madanhmuc);
+
+                        // Execute the command and retrieve the results
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            DanhMuc danhmuc = new DanhMuc();
-                            danhmuc.maDanhMuc = reader["MaDanhMuc"].ToString();
-                            danhmuc.tenDanhMuc = reader["TenDanhMuc"].ToString();
-                            listMaDanhMuc.Add(danhmuc);
+                            while (reader.Read())
+                            {
+                                DanhMuc danhmuc = new DanhMuc();
+                                danhmuc.maDanhMuc = reader["MaDanhMuc"].ToString();
+                                danhmuc.tenDanhMuc = reader["TenDanhMuc"].ToString();
+                                listMaDanhMuc.Add(danhmuc);
+                            }
                         }
                     }
                 }
-                con1.Close();
             }
             return listMaDanhMuc;
         }

@@ -26,20 +26,23 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             List<string> names = new List<string>();
 
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                string query = "SELECT DISTINCT TenKhachHang FROM vwTenKhachHang"; // Assuming the customer name field is 'TenKhachHang'
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
+                    string query = "SELECT DISTINCT TenKhachHang FROM vwTenKhachHang"; // Assuming the customer name field is 'TenKhachHang'
 
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, con))
                     {
-                        string customerName = reader["TenKhachHang"].ToString();
-                        names.Add(customerName);
+                        db.OpenConnection();
+
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            string customerName = reader["TenKhachHang"].ToString();
+                            names.Add(customerName);
+                        }
                     }
                 }
             }
@@ -51,20 +54,25 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             List<string> names = new List<string>();
 
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                string query = "SELECT DISTINCT TenChiNhanh FROM vwTenChiNhanh"; // Assuming the department name field is 'TenChiNhanh'
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
                     {
-                        string departmentName = reader["TenChiNhanh"].ToString();
-                        names.Add(departmentName);
+                        string query = "SELECT DISTINCT TenChiNhanh FROM vwTenChiNhanh"; // Assuming the department name field is 'TenChiNhanh'
+
+                        using (SqlCommand command = new SqlCommand(query, con))
+                        {
+                            db.OpenConnection();
+
+                            SqlDataReader reader = command.ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                string departmentName = reader["TenChiNhanh"].ToString();
+                                names.Add(departmentName);
+                            }
+                        }
                     }
                 }
             }
@@ -76,24 +84,27 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             List<KeyValuePair<string, string>> itemNames = new List<KeyValuePair<string, string>>();
 
-            string connectionString = Properties.Settings.Default.connectionString;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+
+            using (DBConnection db = new DBConnection())
             {
-                string query = "SELECT MaMatHangSP, TenSP FROM vwMatHangSanPham";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
+                    string query = "SELECT MaMatHangSP, TenSP FROM vwMatHangSanPham";
 
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, con))
                     {
-                        string itemId = reader["MaMatHangSP"].ToString();
-                        string itemName = reader["TenSP"].ToString();
+                        db.OpenConnection();
 
-                        itemNames.Add(new KeyValuePair<string, string>(itemName, itemId));
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            string itemId = reader["MaMatHangSP"].ToString();
+                            string itemName = reader["TenSP"].ToString();
+
+                            itemNames.Add(new KeyValuePair<string, string>(itemName, itemId));
+                        }
                     }
                 }
             }
@@ -148,7 +159,7 @@ namespace CuaHangDienTu.UI.ChildForm
 
         private void createOrderButton_Click(object sender, EventArgs e)
         {
-            string connectionString = Properties.Settings.Default.connectionString;
+
 
             string maDH = "DH" + GenerateRandomID(8); // Tạo mã đơn hàng ngẫu nhiên
             _currentOrderId = maDH;
@@ -160,55 +171,59 @@ namespace CuaHangDienTu.UI.ChildForm
             string maKhachHang = null;
             string maChiNhanh = null;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spLayMaKhachHangTuTen", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add the customer name parameter
-                    command.Parameters.Add("@TenKhachHang", SqlDbType.NVarChar, 50).Value = tenKhachHang;
-
-                    // Add the missing @MaKhachHang parameter and specify the ParameterDirection.Output direction
-                    command.Parameters.Add("@MaKhachHang", SqlDbType.NVarChar, 10).Direction = ParameterDirection.Output;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spLayMaKhachHangTuTen", con))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Get the output customer ID parameter
-                        maKhachHang = command.Parameters["@MaKhachHang"].Value.ToString();
+                        // Add the customer name parameter
+                        command.Parameters.Add("@TenKhachHang", SqlDbType.NVarChar, 50).Value = tenKhachHang;
+
+                        // Add the missing @MaKhachHang parameter and specify the ParameterDirection.Output direction
+                        command.Parameters.Add("@MaKhachHang", SqlDbType.NVarChar, 10).Direction = ParameterDirection.Output;
+
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+
+                            // Get the output customer ID parameter
+                            maKhachHang = command.Parameters["@MaKhachHang"].Value.ToString();
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Handle the error
+                            MessageBox.Show("Đã xảy ra lỗi khi lấy mã khách hàng: " + ex.Message);
+                            return;
+                        }
                     }
-                    catch (SqlException ex)
+
+
+                    using (SqlCommand command = new SqlCommand("spLayMaChiNhanhTuTen", con))
                     {
-                        // Handle the error
-                        MessageBox.Show("Đã xảy ra lỗi khi lấy mã khách hàng: " + ex.Message);
-                        return;
-                    }
-                }
+                        command.CommandType = CommandType.StoredProcedure;
 
-                using (SqlCommand command = new SqlCommand("spLayMaChiNhanhTuTen", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
+                        // Add the department name parameter
+                        command.Parameters.Add("@TenChiNhanh", SqlDbType.NVarChar, 50).Value = tenChiNhanh;
+                        // Add the missing @MaChiNhanh parameter and specify the ParameterDirection.Output direction
+                        command.Parameters.Add("@MaChiNhanh", SqlDbType.NVarChar, 10).Direction = ParameterDirection.Output;
 
-                    // Add the department name parameter
-                    command.Parameters.Add("@TenChiNhanh", SqlDbType.NVarChar, 50).Value = tenChiNhanh;
-                    // Add the missing @MaChiNhanh parameter and specify the ParameterDirection.Output direction
-                    command.Parameters.Add("@MaChiNhanh", SqlDbType.NVarChar, 10).Direction = ParameterDirection.Output;
+                        try
+                        {
+                            command.ExecuteNonQuery();
 
-                    try
-                    {
-                        command.ExecuteNonQuery();
-
-                        // Get the output customer ID parameter
-                        maChiNhanh = command.Parameters["@MaChiNhanh"].Value.ToString();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Handle the error
-                        MessageBox.Show("Đã xảy ra lỗi khi lấy mã chi nhánh: " + ex.Message);
-                        return;
+                            // Get the output customer ID parameter
+                            maChiNhanh = command.Parameters["@MaChiNhanh"].Value.ToString();
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Handle the error
+                            MessageBox.Show("Đã xảy ra lỗi khi lấy mã chi nhánh: " + ex.Message);
+                            return;
+                        }
                     }
                 }
             }
@@ -220,31 +235,34 @@ namespace CuaHangDienTu.UI.ChildForm
                 return;
             }
             // Thực hiện kết nối đến cơ sở dữ liệu
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spTaoDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Thêm các tham số cần thiết cho thủ tục
-                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = maDH;
-                    command.Parameters.Add("@TongGiaTri", SqlDbType.Int).Value = tongGiaTri;
-                    command.Parameters.Add("@NgayDatHang", SqlDbType.Date).Value = DateTime.Today; // Ngày hôm nay
-                    _currentOrderCreatedDate = DateTime.Today;
-                    command.Parameters.Add("@MaKH", SqlDbType.NVarChar, 10).Value = maKhachHang;
-                    command.Parameters.Add("@MaCN", SqlDbType.NVarChar, 10).Value = maChiNhanh;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spTaoDonHang", con))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        _orderCreated = true;
-                        toggleAddProducts();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Xử lý lỗi, có thể hiển thị thông báo cho người dùng
-                        MessageBox.Show("Đã xảy ra lỗi khi tạo đơn hàng: " + ex.Message);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Thêm các tham số cần thiết cho thủ tục
+                        command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = maDH;
+                        command.Parameters.Add("@TongGiaTri", SqlDbType.Int).Value = tongGiaTri;
+                        command.Parameters.Add("@NgayDatHang", SqlDbType.Date).Value = DateTime.Today; // Ngày hôm nay
+                        _currentOrderCreatedDate = DateTime.Today;
+                        command.Parameters.Add("@MaKH", SqlDbType.NVarChar, 10).Value = maKhachHang;
+                        command.Parameters.Add("@MaCN", SqlDbType.NVarChar, 10).Value = maChiNhanh;
+
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            _orderCreated = true;
+                            toggleAddProducts();
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Xử lý lỗi, có thể hiển thị thông báo cho người dùng
+                            MessageBox.Show("Đã xảy ra lỗi khi tạo đơn hàng: " + ex.Message);
+                        }
                     }
                 }
             }
@@ -255,21 +273,24 @@ namespace CuaHangDienTu.UI.ChildForm
             _orderCreated = false;
             toggleAddProducts();
 
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spXoaDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
+                    using (SqlCommand command = new SqlCommand("spXoaDonHang", con))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
+                        }
                     }
                 }
             }
@@ -293,21 +314,24 @@ namespace CuaHangDienTu.UI.ChildForm
             string customerPhone = customerPhoneTextBox.Text;
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spThemKH", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("spThemKH", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        // Add parameters
-                        command.Parameters.Add("@MaKH", SqlDbType.VarChar, 10).Value = randomID;
-                        command.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = customerName;
-                        command.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 10).Value = customerPhone;
+                            // Add parameters
+                            command.Parameters.Add("@MaKH", SqlDbType.VarChar, 10).Value = randomID;
+                            command.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = customerName;
+                            command.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 10).Value = customerPhone;
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
 
-                        MessageBox.Show("Customer added successfully!");
+                            MessageBox.Show("Customer added successfully!");
+                        }
                     }
                 }
             }
@@ -347,41 +371,44 @@ namespace CuaHangDienTu.UI.ChildForm
             }
 
             // Create a new SqlCommand object to call the spTaoChiTietDonHang stored procedure.
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spTaoChiTietDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add the order ID, product ID, and quantity parameters.
-                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = currentOrderId;
-                    command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
-                    command.Parameters.Add("@SoLuong", SqlDbType.Int).Value = currentQuantity;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spTaoChiTietDonHang", con))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Show a message to the user indicating that the product item was added to the order.
-                        MessageBox.Show("Đã thêm sản phẩm " + productName + " vào đơn hàng.");
+                        // Add the order ID, product ID, and quantity parameters.
+                        command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = currentOrderId;
+                        command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
+                        command.Parameters.Add("@SoLuong", SqlDbType.Int).Value = currentQuantity;
 
-                        OrderDetailsDTO orderDetail = new OrderDetailsDTO();
-                        UpdateDescriptionAndPrice(productItemId);
-                        orderDetail.OrderId = currentOrderId;
-                        orderDetail.ProductItemId = productItemId;
-                        orderDetail.ProductName = productName;
-                        orderDetail.ProductDescription = _currentDescription;
-                        orderDetail.Quantity = currentQuantity;
-                        orderDetail.Price = _currentPrice;
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
 
-                        _orderDetails.Add(orderDetail);
-                        UpdateOrderDetailsPanel();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Handle the error.
-                        MessageBox.Show("Đã xảy ra lỗi khi thêm sản phẩm vào đơn hàng: " + ex.Message);
+                            // Show a message to the user indicating that the product item was added to the order.
+                            MessageBox.Show("Đã thêm sản phẩm " + productName + " vào đơn hàng.");
+
+                            OrderDetailsDTO orderDetail = new OrderDetailsDTO();
+                            UpdateDescriptionAndPrice(productItemId);
+                            orderDetail.OrderId = currentOrderId;
+                            orderDetail.ProductItemId = productItemId;
+                            orderDetail.ProductName = productName;
+                            orderDetail.ProductDescription = _currentDescription;
+                            orderDetail.Quantity = currentQuantity;
+                            orderDetail.Price = _currentPrice;
+
+                            _orderDetails.Add(orderDetail);
+                            UpdateOrderDetailsPanel();
+                        }
+                        catch (SqlException ex)
+                        {
+                            // Handle the error.
+                            MessageBox.Show("Đã xảy ra lỗi khi thêm sản phẩm vào đơn hàng: " + ex.Message);
+                        }
                     }
                 }
             }
@@ -389,40 +416,43 @@ namespace CuaHangDienTu.UI.ChildForm
 
         private void UpdateDescriptionAndPrice(string productItemId)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spLayGiaSanPhamVaMoTa", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add the product ID parameter.
-                    command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spLayGiaSanPhamVaMoTa", con))
                     {
-                        connection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Execute the stored procedure and get the price and description of the product item.
-                        SqlDataReader reader = command.ExecuteReader();
+                        // Add the product ID parameter.
+                        command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
 
-                        if (reader.Read())
+                        try
                         {
-                            _currentPrice = reader.GetInt32(0);
-                            _currentDescription = reader.GetString(1);
+                            db.OpenConnection();
 
+                            // Execute the stored procedure and get the price and description of the product item.
+                            SqlDataReader reader = command.ExecuteReader();
+
+                            if (reader.Read())
+                            {
+                                _currentPrice = reader.GetInt32(0);
+                                _currentDescription = reader.GetString(1);
+
+                            }
+                            else
+                            {
+                                // Handle the error.
+                                MessageBox.Show("Không tìm thấy sản phẩm với mã " + productItemId + ".");
+                            }
+
+                            reader.Close();
                         }
-                        else
+                        catch (SqlException ex)
                         {
                             // Handle the error.
-                            MessageBox.Show("Không tìm thấy sản phẩm với mã " + productItemId + ".");
+                            MessageBox.Show("Đã xảy ra lỗi khi lấy giá và mô tả sản phẩm: " + ex.Message);
                         }
-
-                        reader.Close();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Handle the error.
-                        MessageBox.Show("Đã xảy ra lỗi khi lấy giá và mô tả sản phẩm: " + ex.Message);
                     }
                 }
             }
@@ -447,33 +477,35 @@ namespace CuaHangDienTu.UI.ChildForm
 
         private void DeleteOrderDetails(object? sender, string e)
         {
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spXoaChiTietDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add parameters
-                    command.Parameters.Add("@MaDH", SqlDbType.VarChar, 10).Value = _currentOrderId;
-                    command.Parameters.Add("@MaMatHangSP", SqlDbType.VarChar, 10).Value = e;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spXoaChiTietDonHang", con))
                     {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Order details deleted successfully!");
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Get the order details to delete.
-                        var orderDetailsToDelete = _orderDetails.Where(od => od.OrderId == _currentOrderId && od.ProductItemId == e).FirstOrDefault();
-                        // Delete the order details from the list.
-                        _orderDetails.Remove(orderDetailsToDelete);
-                        UpdateOrderDetailsPanel();
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                        // Add parameters
+                        command.Parameters.Add("@MaDH", SqlDbType.VarChar, 10).Value = _currentOrderId;
+                        command.Parameters.Add("@MaMatHangSP", SqlDbType.VarChar, 10).Value = e;
 
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            MessageBox.Show("Order details deleted successfully!");
+
+                            // Get the order details to delete.
+                            var orderDetailsToDelete = _orderDetails.Where(od => od.OrderId == _currentOrderId && od.ProductItemId == e).FirstOrDefault();
+                            // Delete the order details from the list.
+                            _orderDetails.Remove(orderDetailsToDelete);
+                            UpdateOrderDetailsPanel();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
                 }
             }
         }
@@ -490,23 +522,26 @@ namespace CuaHangDienTu.UI.ChildForm
                 this.DialogResult = DialogResult.Cancel;
                 return;
             }
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spXoaDonHang", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
+                    using (SqlCommand command = new SqlCommand("spXoaDonHang", con))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = _currentOrderId;
 
-                    try
-                    {
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        this.DialogResult = DialogResult.Cancel;
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
-                        this.DialogResult = DialogResult.Cancel;
+                        try
+                        {
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                            this.DialogResult = DialogResult.Cancel;
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show("Lỗi khi xóa đơn hàng: " + ex.Message);
+                            this.DialogResult = DialogResult.Cancel;
+                        }
                     }
                 }
             }

@@ -46,22 +46,25 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spXoaDonNhapHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlCommand command = new SqlCommand("spXoaDonNhapHang", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
 
-                        // Thêm các tham số cần thiết cho thủ tục
-                        command.Parameters.Add("@MaDNH", SqlDbType.NVarChar, 10).Value = _importOrderId;
+                            // Thêm các tham số cần thiết cho thủ tục
+                            command.Parameters.Add("@MaDNH", SqlDbType.NVarChar, 10).Value = _importOrderId;
 
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
 
-                        //_orderCreated = true;
-                        //toggleAddProducts();
-                        DialogResult = DialogResult.OK;
+                            //_orderCreated = true;
+                            //toggleAddProducts();
+                            DialogResult = DialogResult.OK;
 
+                        }
                     }
                 }
             }
@@ -75,21 +78,24 @@ namespace CuaHangDienTu.UI.ChildForm
         private List<string> GetProductNames()
         {
             List<string> productNames = new List<string>();
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                string query = "SELECT MaMatHangSP, TenSP FROM vwMatHangSanPham";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
+                    string query = "SELECT MaMatHangSP, TenSP FROM vwMatHangSanPham";
 
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, con))
                     {
-                        string itemName = reader.GetString("TenSP");
+                        db.OpenConnection();
 
-                        productNames.Add(itemName);
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            string itemName = reader.GetString("TenSP");
+
+                            productNames.Add(itemName);
+                        }
                     }
                 }
             }
@@ -112,40 +118,43 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             string productItemId = GetProductItemId(productName);
             _currentProductItemId = productItemId;
-            using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+            using (DBConnection db = new DBConnection())
             {
-                using (SqlCommand command = new SqlCommand("spLayGiaSanPhamVaMoTa", connection))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add the product ID parameter.
-                    command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
-
-                    try
+                    using (SqlCommand command = new SqlCommand("spLayGiaSanPhamVaMoTa", con))
                     {
-                        connection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
 
-                        // Execute the stored procedure and get the price and description of the product item.
-                        SqlDataReader reader = command.ExecuteReader();
+                        // Add the product ID parameter.
+                        command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
 
-                        if (reader.Read())
+                        try
                         {
-                            _currentPrice = reader.GetInt32(0);
-                            _currentDescription = reader.GetString(1);
+                            db.OpenConnection();
 
+                            // Execute the stored procedure and get the price and description of the product item.
+                            SqlDataReader reader = command.ExecuteReader();
+
+                            if (reader.Read())
+                            {
+                                _currentPrice = reader.GetInt32(0);
+                                _currentDescription = reader.GetString(1);
+
+                            }
+                            else
+                            {
+                                // Handle the error.
+                                MessageBox.Show("Không tìm thấy sản phẩm với mã " + productItemId + ".");
+                            }
+
+                            reader.Close();
                         }
-                        else
+                        catch (SqlException ex)
                         {
                             // Handle the error.
-                            MessageBox.Show("Không tìm thấy sản phẩm với mã " + productItemId + ".");
+                            MessageBox.Show("Đã xảy ra lỗi khi lấy giá và mô tả sản phẩm: " + ex.Message);
                         }
-
-                        reader.Close();
-                    }
-                    catch (SqlException ex)
-                    {
-                        // Handle the error.
-                        MessageBox.Show("Đã xảy ra lỗi khi lấy giá và mô tả sản phẩm: " + ex.Message);
                     }
                 }
             }
@@ -156,13 +165,16 @@ namespace CuaHangDienTu.UI.ChildForm
             string maSP = null;
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaSanPhamTuTenSanPham(@TenSP)", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.Parameters.AddWithValue("@TenSP", productName);
-                        connection.Open();
-                        maSP = (string)command.ExecuteScalar();
+                        using (SqlCommand command = new SqlCommand("SELECT dbo.fnLayMaSanPhamTuTenSanPham(@TenSP)", con))
+                        {
+                            command.Parameters.AddWithValue("@TenSP", productName);
+                            db.OpenConnection();
+                            maSP = (string)command.ExecuteScalar();
+                        }
                     }
                 }
             }
@@ -187,17 +199,20 @@ namespace CuaHangDienTu.UI.ChildForm
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(Properties.Settings.Default.connectionString))
+                using (DBConnection db = new DBConnection())
                 {
-                    using (SqlCommand command = new SqlCommand("spTaoChiTietDonNhapHang", connection))
+                    using (SqlConnection con = db.GetConnection())
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MaDNH", _importOrderId);
-                        command.Parameters.AddWithValue("@MaMatHangSP", _currentProductItemId);
-                        command.Parameters.AddWithValue("@SoLuong", _currentQuantity);
-                        command.Parameters.AddWithValue("@GiaNhap", importPriceTextBox.Text);
-                        connection.Open();
-                        command.ExecuteNonQuery();
+                        using (SqlCommand command = new SqlCommand("spTaoChiTietDonNhapHang", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@MaDNH", _importOrderId);
+                            command.Parameters.AddWithValue("@MaMatHangSP", _currentProductItemId);
+                            command.Parameters.AddWithValue("@SoLuong", _currentQuantity);
+                            command.Parameters.AddWithValue("@GiaNhap", importPriceTextBox.Text);
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
 
