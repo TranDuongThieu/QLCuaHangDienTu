@@ -35,7 +35,7 @@ namespace CuaHangDienTu.UI.Order
 
         private void viewOrderDetailsButton_Click(object sender, EventArgs e)
         {
-            using (var f = new OrderDetailsForm("test"))
+            using (var f = new OrderDetailsForm(_selectedOrder.OrderId))
             {
                 f.ShowDialog();
             }

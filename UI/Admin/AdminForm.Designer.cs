@@ -33,6 +33,7 @@
             tabSP = new TabPage();
             tabHD = new TabPage();
             tabDNH = new TabPage();
+            tabDoanhThu = new TabPage();
             tabControl.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,12 +44,14 @@
             tabControl.Controls.Add(tabSP);
             tabControl.Controls.Add(tabHD);
             tabControl.Controls.Add(tabDNH);
+            tabControl.Controls.Add(tabDoanhThu);
             tabControl.Dock = DockStyle.Fill;
             tabControl.ItemSize = new Size(180, 40);
             tabControl.Location = new Point(0, 0);
+            tabControl.Margin = new Padding(2, 2, 2, 2);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(1528, 778);
+            tabControl.Size = new Size(1070, 467);
             tabControl.TabButtonHoverState.BorderColor = Color.Empty;
             tabControl.TabButtonHoverState.FillColor = Color.FromArgb(40, 52, 70);
             tabControl.TabButtonHoverState.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -71,9 +74,10 @@
             // tabKH
             // 
             tabKH.Location = new Point(184, 4);
+            tabKH.Margin = new Padding(2, 2, 2, 2);
             tabKH.Name = "tabKH";
-            tabKH.Padding = new Padding(3);
-            tabKH.Size = new Size(1340, 770);
+            tabKH.Padding = new Padding(2, 2, 2, 2);
+            tabKH.Size = new Size(882, 459);
             tabKH.TabIndex = 0;
             tabKH.Text = "Khách Hàng";
             tabKH.UseVisualStyleBackColor = true;
@@ -81,9 +85,10 @@
             // tabSP
             // 
             tabSP.Location = new Point(184, 4);
+            tabSP.Margin = new Padding(2, 2, 2, 2);
             tabSP.Name = "tabSP";
-            tabSP.Padding = new Padding(3);
-            tabSP.Size = new Size(1417, 749);
+            tabSP.Padding = new Padding(2, 2, 2, 2);
+            tabSP.Size = new Size(882, 459);
             tabSP.TabIndex = 1;
             tabSP.Text = "Sản Phẩm";
             tabSP.UseVisualStyleBackColor = true;
@@ -91,8 +96,9 @@
             // tabHD
             // 
             tabHD.Location = new Point(184, 4);
+            tabHD.Margin = new Padding(2, 2, 2, 2);
             tabHD.Name = "tabHD";
-            tabHD.Size = new Size(1417, 749);
+            tabHD.Size = new Size(882, 459);
             tabHD.TabIndex = 2;
             tabHD.Text = "Hóa Đơn";
             tabHD.UseVisualStyleBackColor = true;
@@ -100,18 +106,29 @@
             // tabDNH
             // 
             tabDNH.Location = new Point(184, 4);
+            tabDNH.Margin = new Padding(2, 2, 2, 2);
             tabDNH.Name = "tabDNH";
-            tabDNH.Size = new Size(1417, 749);
+            tabDNH.Size = new Size(882, 459);
             tabDNH.TabIndex = 3;
             tabDNH.Text = "Đơn Nhập Hàng";
             tabDNH.UseVisualStyleBackColor = true;
             // 
+            // tabDoanhThu
+            // 
+            tabDoanhThu.Location = new Point(184, 4);
+            tabDoanhThu.Name = "tabDoanhThu";
+            tabDoanhThu.Size = new Size(882, 459);
+            tabDoanhThu.TabIndex = 4;
+            tabDoanhThu.Text = "Doanh Thu";
+            tabDoanhThu.UseVisualStyleBackColor = true;
+            // 
             // AdminForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1528, 778);
+            ClientSize = new Size(1070, 467);
             Controls.Add(tabControl);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "AdminForm";
             Text = "AdminForm";
             Load += AdminForm_Load;
@@ -126,5 +143,6 @@
         private TabPage tabSP;
         private TabPage tabHD;
         private TabPage tabDNH;
+        private TabPage tabDoanhThu;
     }
 }
