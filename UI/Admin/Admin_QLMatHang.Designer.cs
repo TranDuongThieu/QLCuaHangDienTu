@@ -58,7 +58,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(1030, 516);
+            button1.Location = new Point(967, 325);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 42;
@@ -69,9 +69,9 @@
             // filename
             // 
             filename.AutoSize = true;
-            filename.Location = new Point(1148, 521);
+            filename.Location = new Point(625, 362);
             filename.Name = "filename";
-            filename.Size = new Size(79, 25);
+            filename.Size = new Size(53, 15);
             filename.TabIndex = 41;
             filename.Text = "filename";
             // 
@@ -85,10 +85,10 @@
             btn_add.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             btn_add.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             btn_add.ForeColor = Color.White;
-            btn_add.Location = new Point(320, 746);
+            btn_add.Location = new Point(159, 522);
             btn_add.Name = "btn_add";
             btn_add.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btn_add.Size = new Size(270, 68);
+            btn_add.Size = new Size(256, 56);
             btn_add.TabIndex = 40;
             btn_add.Text = "Thêm Mặt Hàng";
             btn_add.Click += btn_add_Click;
@@ -96,7 +96,7 @@
             // btn_Xoa
             // 
             btn_Xoa.BackColor = Color.Red;
-            btn_Xoa.Location = new Point(1424, 746);
+            btn_Xoa.Location = new Point(976, 523);
             btn_Xoa.Name = "btn_Xoa";
             btn_Xoa.Size = new Size(143, 50);
             btn_Xoa.TabIndex = 39;
@@ -107,7 +107,7 @@
             // btn_Update
             // 
             btn_Update.BackColor = Color.Lime;
-            btn_Update.Location = new Point(1198, 746);
+            btn_Update.Location = new Point(750, 523);
             btn_Update.Name = "btn_Update";
             btn_Update.Size = new Size(143, 50);
             btn_Update.TabIndex = 38;
@@ -117,39 +117,39 @@
             // 
             // txt_DaBan
             // 
-            txt_DaBan.Location = new Point(1477, 689);
+            txt_DaBan.Location = new Point(1022, 482);
             txt_DaBan.Name = "txt_DaBan";
-            txt_DaBan.Size = new Size(161, 31);
+            txt_DaBan.Size = new Size(161, 23);
             txt_DaBan.TabIndex = 37;
             // 
             // txt_SL
             // 
-            txt_SL.Location = new Point(1199, 689);
+            txt_SL.Location = new Point(744, 482);
             txt_SL.Name = "txt_SL";
-            txt_SL.Size = new Size(153, 31);
+            txt_SL.Size = new Size(153, 23);
             txt_SL.TabIndex = 36;
             // 
             // txt_Gia
             // 
-            txt_Gia.Location = new Point(1199, 638);
+            txt_Gia.Location = new Point(744, 431);
             txt_Gia.Name = "txt_Gia";
-            txt_Gia.Size = new Size(182, 31);
+            txt_Gia.Size = new Size(182, 23);
             txt_Gia.TabIndex = 35;
             // 
             // txt_Ten
             // 
-            txt_Ten.Location = new Point(1199, 588);
+            txt_Ten.Location = new Point(744, 389);
             txt_Ten.Name = "txt_Ten";
             txt_Ten.ReadOnly = true;
-            txt_Ten.Size = new Size(439, 31);
+            txt_Ten.Size = new Size(439, 23);
             txt_Ten.TabIndex = 34;
             // 
             // pic_SanPham
             // 
             pic_SanPham.BorderStyle = BorderStyle.Fixed3D;
-            pic_SanPham.Location = new Point(1081, 154);
+            pic_SanPham.Location = new Point(625, 112);
             pic_SanPham.Name = "pic_SanPham";
-            pic_SanPham.Size = new Size(484, 341);
+            pic_SanPham.Size = new Size(336, 247);
             pic_SanPham.SizeMode = PictureBoxSizeMode.StretchImage;
             pic_SanPham.TabIndex = 33;
             pic_SanPham.TabStop = false;
@@ -157,36 +157,36 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1388, 695);
+            label5.Location = new Point(933, 488);
             label5.Name = "label5";
-            label5.Size = new Size(83, 25);
+            label5.Size = new Size(53, 15);
             label5.TabIndex = 32;
             label5.Text = "Đã bán : ";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1081, 689);
+            label4.Location = new Point(647, 482);
             label4.Name = "label4";
-            label4.Size = new Size(103, 25);
+            label4.Size = new Size(66, 15);
             label4.TabIndex = 31;
             label4.Text = "Số Lượng : ";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(1138, 638);
+            label3.Location = new Point(683, 431);
             label3.Name = "label3";
-            label3.Size = new Size(46, 25);
+            label3.Size = new Size(30, 15);
             label3.TabIndex = 30;
             label3.Text = "Giá :";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(1053, 591);
+            label2.Location = new Point(626, 392);
             label2.Name = "label2";
-            label2.Size = new Size(131, 25);
+            label2.Size = new Size(87, 15);
             label2.TabIndex = 29;
             label2.Text = "Tên Sản Phẩm :";
             // 
@@ -194,20 +194,20 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(1153, 75);
+            label1.Location = new Point(625, 66);
             label1.Name = "label1";
-            label1.Size = new Size(312, 45);
+            label1.Size = new Size(211, 30);
             label1.TabIndex = 28;
             label1.Text = "Thông Tin Sản Phẩm";
             // 
             // table_SP
             // 
             table_SP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            table_SP.Location = new Point(102, 224);
+            table_SP.Location = new Point(79, 181);
             table_SP.Name = "table_SP";
             table_SP.RowHeadersWidth = 62;
             table_SP.RowTemplate.Height = 33;
-            table_SP.Size = new Size(855, 498);
+            table_SP.Size = new Size(478, 315);
             table_SP.TabIndex = 27;
             table_SP.SelectionChanged += table_SP_SelectionChanged;
             // 
@@ -217,7 +217,7 @@
             guna2HtmlLabel1.Font = new Font("Segoe UI", 26F, FontStyle.Bold, GraphicsUnit.Point);
             guna2HtmlLabel1.Location = new Point(79, 6);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(684, 72);
+            guna2HtmlLabel1.Size = new Size(467, 49);
             guna2HtmlLabel1.TabIndex = 26;
             guna2HtmlLabel1.Text = "Quản lý mặt hàng sản phẩm";
             // 
@@ -240,14 +240,14 @@
             guna2TextBox1.IconRight = (Image)resources.GetObject("guna2TextBox1.IconRight");
             guna2TextBox1.IconRightCursor = Cursors.Hand;
             guna2TextBox1.IconRightSize = new Size(32, 32);
-            guna2TextBox1.Location = new Point(102, 143);
+            guna2TextBox1.Location = new Point(79, 112);
             guna2TextBox1.Margin = new Padding(4, 5, 4, 5);
             guna2TextBox1.Name = "guna2TextBox1";
             guna2TextBox1.PasswordChar = '\0';
             guna2TextBox1.PlaceholderText = "Tìm kiếm sản phẩm";
             guna2TextBox1.SelectedText = "";
             guna2TextBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2TextBox1.Size = new Size(559, 55);
+            guna2TextBox1.Size = new Size(478, 44);
             guna2TextBox1.TabIndex = 43;
             // 
             // Admin_QLMatHang

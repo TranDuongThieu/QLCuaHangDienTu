@@ -1,4 +1,4 @@
-﻿using CuaHangDienTu.UI.Login;
+using CuaHangDienTu.UI.Login;
 using Microsoft.Data.SqlClient;
 
 namespace CuaHangDienTu.Models

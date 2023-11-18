@@ -1,5 +1,6 @@
 ﻿using CuaHangDienTu.Models;
 using CuaHangDienTu.UI.Admin;
+using CuaHangDienTu.UI.Main;
 using Microsoft.Data.SqlClient;
 
 namespace CuaHangDienTu.UI.Login
@@ -9,6 +10,31 @@ namespace CuaHangDienTu.UI.Login
         public RealLoginForm()
         {
             InitializeComponent();
+        }
+
+        private bool isAdmin(string username)
+        {
+            bool isAdmin = false;
+            try
+            {
+                using (DBConnection db = new DBConnection())
+                {
+                    using (SqlConnection connection = db.GetConnectionAdmin())
+                    {
+                        using (SqlCommand command = new SqlCommand("SELECT dbo.fnKiemTraQuyenAdmin(@TenDangNhap);", connection))
+                        {
+                            command.Parameters.AddWithValue("@TenDangNhap", username);
+                            db.OpenConnectionAdmin();
+                            isAdmin = (bool)command.ExecuteScalar();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Lỗi khi kiểm tra quyền của người dùng: " + ex.Message);
+            }
+            return isAdmin;
         }
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -27,9 +53,20 @@ namespace CuaHangDienTu.UI.Login
                     }
                 }
                 MessageBox.Show("Đăng nhập thành công");
-                AdminForm adminForm = new AdminForm();
-                adminForm.Show();
-                this.Hide();
+
+                if (isAdmin(username))
+                {
+                    AdminForm adminForm = new AdminForm();
+                    adminForm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MainForm mainForm = new MainForm();
+                    mainForm.Show();
+                    this.Hide();
+                }
+
             }
             catch (SqlException ex)
             {

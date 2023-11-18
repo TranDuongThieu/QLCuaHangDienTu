@@ -66,7 +66,7 @@ namespace CuaHangDienTu.UI.ChildForm
                                     int soLuong = reader.GetInt32(reader.GetOrdinal("SoLuong"));
                                     using (DBConnection db2 = new DBConnection())
                                     {
-                                        using (SqlConnection con2 = db.GetConnection())
+                                        using (SqlConnection con2 = db2.GetConnection())
                                         {
                                             using (SqlCommand nestedCommand = new SqlCommand("spLayGiaSanPhamVaMoTa", con2))
                                             {
