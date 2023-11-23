@@ -52,5 +52,10 @@ namespace CuaHangDienTu.UI.Order
         {
             OrderDetailsDeleted = null; // Unregister the event handler
         }
+
+        public void ShowDeleteButton()
+        {
+            this.deleteButton.Visible = true;
+        }
     }
 }

@@ -48,7 +48,7 @@
             tabControl.Dock = DockStyle.Fill;
             tabControl.ItemSize = new Size(180, 40);
             tabControl.Location = new Point(0, 0);
-            tabControl.Margin = new Padding(2, 2, 2, 2);
+            tabControl.Margin = new Padding(2);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
             tabControl.Size = new Size(1070, 467);
@@ -74,9 +74,9 @@
             // tabKH
             // 
             tabKH.Location = new Point(184, 4);
-            tabKH.Margin = new Padding(2, 2, 2, 2);
+            tabKH.Margin = new Padding(2);
             tabKH.Name = "tabKH";
-            tabKH.Padding = new Padding(2, 2, 2, 2);
+            tabKH.Padding = new Padding(2);
             tabKH.Size = new Size(882, 459);
             tabKH.TabIndex = 0;
             tabKH.Text = "Khách Hàng";
@@ -85,9 +85,9 @@
             // tabSP
             // 
             tabSP.Location = new Point(184, 4);
-            tabSP.Margin = new Padding(2, 2, 2, 2);
+            tabSP.Margin = new Padding(2);
             tabSP.Name = "tabSP";
-            tabSP.Padding = new Padding(2, 2, 2, 2);
+            tabSP.Padding = new Padding(2);
             tabSP.Size = new Size(882, 459);
             tabSP.TabIndex = 1;
             tabSP.Text = "Sản Phẩm";
@@ -96,7 +96,7 @@
             // tabHD
             // 
             tabHD.Location = new Point(184, 4);
-            tabHD.Margin = new Padding(2, 2, 2, 2);
+            tabHD.Margin = new Padding(2);
             tabHD.Name = "tabHD";
             tabHD.Size = new Size(882, 459);
             tabHD.TabIndex = 2;
@@ -106,7 +106,7 @@
             // tabDNH
             // 
             tabDNH.Location = new Point(184, 4);
-            tabDNH.Margin = new Padding(2, 2, 2, 2);
+            tabDNH.Margin = new Padding(2);
             tabDNH.Name = "tabDNH";
             tabDNH.Size = new Size(882, 459);
             tabDNH.TabIndex = 3;
@@ -128,9 +128,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1070, 467);
             Controls.Add(tabControl);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "AdminForm";
             Text = "AdminForm";
+            FormClosed += AdminForm_FormClosed;
             Load += AdminForm_Load;
             tabControl.ResumeLayout(false);
             ResumeLayout(false);

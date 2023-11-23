@@ -46,7 +46,7 @@
             guna2TabControl1.Dock = DockStyle.Fill;
             guna2TabControl1.ItemSize = new Size(180, 40);
             guna2TabControl1.Location = new Point(0, 0);
-            guna2TabControl1.Margin = new Padding(2, 2, 2, 2);
+            guna2TabControl1.Margin = new Padding(2);
             guna2TabControl1.Name = "guna2TabControl1";
             guna2TabControl1.SelectedIndex = 0;
             guna2TabControl1.Size = new Size(986, 450);
@@ -68,13 +68,14 @@
             guna2TabControl1.TabButtonSize = new Size(180, 40);
             guna2TabControl1.TabIndex = 0;
             guna2TabControl1.TabMenuBackColor = Color.FromArgb(33, 42, 57);
+            guna2TabControl1.Click += orderTabClick;
             // 
             // tab_phone
             // 
             tab_phone.Location = new Point(184, 4);
-            tab_phone.Margin = new Padding(2, 2, 2, 2);
+            tab_phone.Margin = new Padding(2);
             tab_phone.Name = "tab_phone";
-            tab_phone.Padding = new Padding(2, 2, 2, 2);
+            tab_phone.Padding = new Padding(2);
             tab_phone.Size = new Size(798, 442);
             tab_phone.TabIndex = 0;
             tab_phone.Text = "Điện Thoại";
@@ -84,9 +85,9 @@
             // tab_tablet
             // 
             tab_tablet.Location = new Point(184, 4);
-            tab_tablet.Margin = new Padding(2, 2, 2, 2);
+            tab_tablet.Margin = new Padding(2);
             tab_tablet.Name = "tab_tablet";
-            tab_tablet.Padding = new Padding(2, 2, 2, 2);
+            tab_tablet.Padding = new Padding(2);
             tab_tablet.Size = new Size(798, 442);
             tab_tablet.TabIndex = 1;
             tab_tablet.Text = "Tablet";
@@ -95,7 +96,7 @@
             // tab_laptop
             // 
             tab_laptop.Location = new Point(184, 4);
-            tab_laptop.Margin = new Padding(2, 2, 2, 2);
+            tab_laptop.Margin = new Padding(2);
             tab_laptop.Name = "tab_laptop";
             tab_laptop.Size = new Size(798, 442);
             tab_laptop.TabIndex = 2;
@@ -105,9 +106,9 @@
             // tab_hoadon
             // 
             tab_hoadon.Location = new Point(184, 4);
-            tab_hoadon.Margin = new Padding(2, 2, 2, 2);
+            tab_hoadon.Margin = new Padding(2);
             tab_hoadon.Name = "tab_hoadon";
-            tab_hoadon.Padding = new Padding(2, 2, 2, 2);
+            tab_hoadon.Padding = new Padding(2);
             tab_hoadon.Size = new Size(798, 442);
             tab_hoadon.TabIndex = 3;
             tab_hoadon.Text = "Hóa Đơn";

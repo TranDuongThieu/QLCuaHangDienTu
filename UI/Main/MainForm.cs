@@ -6,6 +6,7 @@ namespace CuaHangDienTu.UI.Main
     public partial class MainForm : Form
     {
         private RealLoginForm _loginFormReference;
+        private OrderForm orderForm;
         public MainForm(RealLoginForm realLoginForm)
         {
             InitializeComponent();
@@ -42,11 +43,12 @@ namespace CuaHangDienTu.UI.Main
             ProductView phone = new ProductView("PHONE");
             ProductView tablet = new ProductView("TABLET");
             ProductView laptop = new ProductView("LAPTOP");
+            orderForm = new OrderForm();
 
             tab_phone.Controls.Add(phone);
             tab_tablet.Controls.Add(tablet);
             tab_laptop.Controls.Add(laptop);
-
+            tab_hoadon.Controls.Add(orderForm);
 
 
         }
@@ -73,6 +75,19 @@ namespace CuaHangDienTu.UI.Main
             UserLoginInfomation.Username = "";
             UserLoginInfomation.Password = "";
             _loginFormReference.Show();
+        }
+
+        private void orderTabClick(object sender, EventArgs e)
+        {
+            if (GlobalVar.CurrentOrderId != null)
+            {
+                orderForm.UpdateOrderDetails();
+                orderForm.ShowDetails();
+            }
+            else
+            {
+                orderForm.HideDetails();
+            }
         }
     }
 }

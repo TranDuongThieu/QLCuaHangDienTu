@@ -56,7 +56,7 @@ namespace CuaHangDienTu.UI.Login
 
                 if (isAdmin(username))
                 {
-                    AdminForm adminForm = new AdminForm();
+                    AdminForm adminForm = new AdminForm(this);
                     adminForm.Show();
                     this.Hide();
                 }

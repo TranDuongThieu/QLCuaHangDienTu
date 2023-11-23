@@ -1,15 +1,7 @@
 ﻿using CuaHangDienTu.Models;
-using Guna.UI2.WinForms;
+using CuaHangDienTu.UI.Main;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CuaHangDienTu.UI.Product
 {
@@ -132,6 +124,75 @@ namespace CuaHangDienTu.UI.Product
             }
 
 
+        }
+        // Them sp vao don hang
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+
+            if (GlobalVar.CurrentOrderId == null)
+            {
+                MessageBox.Show("Vui lòng qua tab hóa đơn để tạo hóa đơn trước.");
+            }
+            else
+            {
+                int currentQuantity = 0;
+
+                using (var quantityForm = new ChooseQuantityForm())
+                {
+                    quantityForm.ShowDialog();
+                    if (quantityForm.CurrentQuantity == null || quantityForm.CurrentQuantity <= 0)
+                    {
+                        MessageBox.Show("Số lượng sản phẩm không hợp lệ");
+                        return;
+                    }
+                    currentQuantity = quantityForm.CurrentQuantity;
+                }
+
+                // Get the current order ID and quantity.
+                string currentOrderId = GlobalVar.CurrentOrderId;
+
+                // Get the selected product item.
+                string productName = product.TenSP;
+                string productItemId = product.MaMH;
+                try
+                {
+
+                    // Create a new SqlCommand object to call the spTaoChiTietDonHang stored procedure.
+                    using (DBConnection db = new DBConnection())
+                    {
+                        using (SqlConnection con = db.GetConnection())
+                        {
+                            using (SqlCommand command = new SqlCommand("spTaoChiTietDonHang", con))
+                            {
+                                command.CommandType = CommandType.StoredProcedure;
+
+                                // Add the order ID, product ID, and quantity parameters.
+                                command.Parameters.Add("@MaDH", SqlDbType.NVarChar, 10).Value = currentOrderId;
+                                command.Parameters.Add("@MaMatHangSP", SqlDbType.NVarChar, 10).Value = productItemId;
+                                command.Parameters.Add("@SoLuong", SqlDbType.Int).Value = currentQuantity;
+
+
+                                db.OpenConnection();
+                                command.ExecuteNonQuery();
+
+                                // Show a message to the user indicating that the product item was added to the order.
+                                MessageBox.Show("Đã thêm sản phẩm " + productName + " vào đơn hàng.");
+
+                                product.SoLuong -= currentQuantity;
+                                product.DaBan += currentQuantity;
+                                soluong.Text = product.SoLuong.ToString();
+                                daban.Text = product.DaBan.ToString();
+                            }
+
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    // Handle the error.
+                    MessageBox.Show("Đã xảy ra lỗi khi thêm sản phẩm vào đơn hàng: " + ex.Message);
+                }
+            }
         }
     }
 }
