@@ -8,10 +8,16 @@ namespace CuaHangDienTu.UI.ImportOrder
     {
         public event EventHandler<string> ImportOrderDetailDeleted;
         private ImportOrderDetailDTO _importOrderDetail;
-        public ImportOrderDetailControl(ImportOrderDetailDTO importOrderDetailDTO)
+        private bool _canDel = true;
+        public ImportOrderDetailControl(ImportOrderDetailDTO importOrderDetailDTO, bool canDel = true)
         {
             InitializeComponent();
             _importOrderDetail = importOrderDetailDTO;
+            _canDel = canDel;
+            if (!_canDel)
+            {
+                button2.Visible = false;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

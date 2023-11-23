@@ -1,16 +1,15 @@
-﻿
-using CuaHangDienTu.UI.Admin;
+﻿using CuaHangDienTu.UI.Login;
 using CuaHangDienTu.UI.Product;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuaHangDienTu.UI.Main
 {
     public partial class MainForm : Form
     {
-
-        public MainForm()
+        private RealLoginForm _loginFormReference;
+        public MainForm(RealLoginForm realLoginForm)
         {
             InitializeComponent();
+            _loginFormReference = realLoginForm;
 
         }
 
@@ -67,6 +66,13 @@ namespace CuaHangDienTu.UI.Main
         private void tab_phone_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UserLoginInfomation.Username = "";
+            UserLoginInfomation.Password = "";
+            _loginFormReference.Show();
         }
     }
 }
