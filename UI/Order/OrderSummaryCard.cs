@@ -21,7 +21,13 @@ namespace CuaHangDienTu.UI.Order
             UpdateOrderSummaryCard();
         }
 
-        private void UpdateOrderSummaryCard()
+        public void DisableButtons()
+        {
+            deleteOrderButton.Visible = false;
+            viewOrderDetailsButton.Visible = false;
+        }
+
+        public void UpdateOrderSummaryCard()
         {
             if (_selectedOrder != null)
             {

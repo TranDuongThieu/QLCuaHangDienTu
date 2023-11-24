@@ -50,6 +50,7 @@ namespace CuaHangDienTu.UI.Main
             orderTitleLabel.Visible = false;
             deleteOrderButton.Visible = false;
             createNewOrderButton.Visible = false;
+            orderSummaryCard1.Visible = false;
         }
 
         private void deleteOrderButton_Click(object sender, EventArgs e)
@@ -189,6 +190,113 @@ namespace CuaHangDienTu.UI.Main
             }
             flowLayoutPanel.ResumeLayout();
             flowLayoutPanel.Show();
+
+            if (GlobalVar.CurrentOrderId == null)
+            {
+                orderSummaryCard1.Visible = false;
+            }
+            else
+            {
+                try
+                {
+                    using (DBConnection db = new DBConnection())
+                    {
+                        using (SqlConnection connection = db.GetConnection())
+                        {
+                            using (SqlCommand command = new SqlCommand("SELECT * FROM DON_HANG WHERE MADH = @MaDH", connection))
+                            {
+                                command.Parameters.AddWithValue("@MaDH", GlobalVar.CurrentOrderId);
+                                db.OpenConnection();
+                                SqlDataReader reader = command.ExecuteReader();
+                                if (reader.Read())
+                                {
+                                    string maDH = reader.GetString("MaDH");
+                                    string maKH = reader.GetString("MaKH");
+                                    string maCN = reader.GetString("MaCN");
+                                    int tongGiaTri = reader.GetInt32("TongGiaTri");
+                                    DateTime ngayDatHang = reader.GetDateTime("NgayDatHang");
+                                    OrderDTO orderDTO = new OrderDTO
+                                    {
+                                        OrderId = maDH,
+                                        CustomerName = GetCustomerName(maKH),
+                                        DepartmentName = GetDepartmentName(maCN),
+                                        TotalValue = tongGiaTri,
+                                        CreatedDate = ngayDatHang,
+                                    };
+                                    orderSummaryCard1.setSelectedOrder(orderDTO);
+                                    orderSummaryCard1.UpdateOrderSummaryCard();
+                                    orderSummaryCard1.DisableButtons();
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+
+                }
+                orderSummaryCard1.Visible = true;
+            }
+        }
+
+        private string GetDepartmentName(string maCN)
+        {
+            string tenCN = null;
+            try
+            {
+                using (DBConnection db = new DBConnection())
+                {
+                    using (SqlConnection connection = db.GetConnection())
+                    {
+                        using (SqlCommand command = new SqlCommand("SELECT TenCN FROM CHI_NHANH WHERE MaCN = @MaCN", connection))
+                        {
+                            command.Parameters.AddWithValue("@MaCN", maCN);
+                            db.OpenConnection();
+                            SqlDataReader reader = command.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                tenCN = reader.GetString("TenCN");
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Xảy ra lỗi khi lấy tên chi nhánh: " + ex.Message);
+            }
+            return tenCN;
+        }
+
+        private string GetCustomerName(string maKH)
+        {
+            string tenKH = null;
+            try
+            {
+                using (DBConnection db = new DBConnection())
+                {
+                    using (SqlConnection connection = db.GetConnection())
+                    {
+                        using (SqlCommand command = new SqlCommand("SELECT HoTenKH FROM KHACH_HANG WHERE MaKH = @MaKH", connection))
+                        {
+                            command.Parameters.AddWithValue("@MaKH", maKH);
+                            db.OpenConnection();
+                            SqlDataReader reader = command.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                tenKH = reader.GetString(0);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Xảy ra lỗi khi lấy tên khách hàng: " + ex.Message);
+            }
+            return tenKH;
         }
 
         internal void ShowDetails()

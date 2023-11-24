@@ -34,6 +34,7 @@
             orderTitleLabel = new Label();
             deleteOrderButton = new Button();
             createNewOrderButton = new Button();
+            orderSummaryCard1 = new Order.OrderSummaryCard();
             SuspendLayout();
             // 
             // noOrderLabel
@@ -98,10 +99,18 @@
             createNewOrderButton.UseVisualStyleBackColor = true;
             createNewOrderButton.Click += createNewOrderButton_Click;
             // 
+            // orderSummaryCard1
+            // 
+            orderSummaryCard1.Location = new Point(654, 18);
+            orderSummaryCard1.Name = "orderSummaryCard1";
+            orderSummaryCard1.Size = new Size(348, 359);
+            orderSummaryCard1.TabIndex = 6;
+            // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(orderSummaryCard1);
             Controls.Add(createNewOrderButton);
             Controls.Add(deleteOrderButton);
             Controls.Add(orderTitleLabel);
@@ -109,7 +118,7 @@
             Controls.Add(createOrderInstructLabel);
             Controls.Add(noOrderLabel);
             Name = "OrderForm";
-            Size = new Size(798, 442);
+            Size = new Size(1027, 442);
             Load += OrderForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -123,5 +132,6 @@
         private Label orderTitleLabel;
         private Button deleteOrderButton;
         private Button createNewOrderButton;
+        private Order.OrderSummaryCard orderSummaryCard1;
     }
 }
