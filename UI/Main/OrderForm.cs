@@ -15,7 +15,7 @@ namespace CuaHangDienTu.UI.Main
             flowLayoutPanel = new FlowLayoutPanel();
             flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Location = new Point(50, 110);
-            flowLayoutPanel.Size = new Size(600, 280);
+            flowLayoutPanel.Size = new Size(1000, 280);
             this.Controls.Add(flowLayoutPanel);
         }
 

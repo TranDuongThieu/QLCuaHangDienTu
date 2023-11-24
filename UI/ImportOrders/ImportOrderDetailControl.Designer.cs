@@ -42,9 +42,11 @@
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
-            pictureBox1.Location = new Point(49, 16);
+            pictureBox1.Location = new Point(70, 27);
+            pictureBox1.Margin = new Padding(4, 5, 4, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 100);
+            pictureBox1.Size = new Size(143, 167);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -52,9 +54,10 @@
             // 
             productNameLabel.AutoSize = true;
             productNameLabel.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            productNameLabel.Location = new Point(208, 16);
+            productNameLabel.Location = new Point(297, 27);
+            productNameLabel.Margin = new Padding(4, 0, 4, 0);
             productNameLabel.Name = "productNameLabel";
-            productNameLabel.Size = new Size(142, 30);
+            productNameLabel.Size = new Size(216, 45);
             productNameLabel.TabIndex = 1;
             productNameLabel.Text = "Tên sản phẩm";
             // 
@@ -62,9 +65,10 @@
             // 
             productDescriptionLabel.AutoSize = true;
             productDescriptionLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            productDescriptionLabel.Location = new Point(208, 59);
+            productDescriptionLabel.Location = new Point(297, 98);
+            productDescriptionLabel.Margin = new Padding(4, 0, 4, 0);
             productDescriptionLabel.Name = "productDescriptionLabel";
-            productDescriptionLabel.Size = new Size(122, 21);
+            productDescriptionLabel.Size = new Size(188, 32);
             productDescriptionLabel.TabIndex = 2;
             productDescriptionLabel.Text = "Mô tả sản phẩm";
             // 
@@ -72,9 +76,10 @@
             // 
             quantityLabel.AutoSize = true;
             quantityLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            quantityLabel.Location = new Point(208, 87);
+            quantityLabel.Location = new Point(297, 145);
+            quantityLabel.Margin = new Padding(4, 0, 4, 0);
             quantityLabel.Name = "quantityLabel";
-            quantityLabel.Size = new Size(73, 21);
+            quantityLabel.Size = new Size(110, 32);
             quantityLabel.TabIndex = 3;
             quantityLabel.Text = "Số lượng";
             // 
@@ -82,18 +87,20 @@
             // 
             priceLabel.AutoSize = true;
             priceLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            priceLabel.Location = new Point(208, 115);
+            priceLabel.Location = new Point(297, 192);
+            priceLabel.Margin = new Padding(4, 0, 4, 0);
             priceLabel.Name = "priceLabel";
-            priceLabel.Size = new Size(63, 21);
+            priceLabel.Size = new Size(96, 32);
             priceLabel.TabIndex = 4;
             priceLabel.Text = "Giá tiền";
             // 
             // button2
             // 
             button2.BackColor = Color.Red;
-            button2.Location = new Point(555, 0);
+            button2.Location = new Point(793, 0);
+            button2.Margin = new Padding(4, 5, 4, 5);
             button2.Name = "button2";
-            button2.Size = new Size(32, 150);
+            button2.Size = new Size(46, 250);
             button2.TabIndex = 6;
             button2.Text = "X";
             button2.UseVisualStyleBackColor = false;
@@ -101,7 +108,7 @@
             // 
             // ImportOrderDetailControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(128, 255, 128);
             Controls.Add(button2);
@@ -110,8 +117,9 @@
             Controls.Add(productDescriptionLabel);
             Controls.Add(productNameLabel);
             Controls.Add(pictureBox1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "ImportOrderDetailControl";
-            Size = new Size(587, 150);
+            Size = new Size(839, 250);
             Load += ImportOrderDetailControl_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
