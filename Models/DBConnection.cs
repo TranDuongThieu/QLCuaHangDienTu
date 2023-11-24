@@ -25,7 +25,7 @@ namespace CuaHangDienTu.Models
             if (this.connectionAdmin == null)
             {
                 connectionAdmin = new SqlConnection(string.Format(
-                "Data Source=DESKTOP-FEGO3NS; Initial Catalog = CuaHangDienTu; Integrated Security=True; Encrypt=False;"));
+                "Data Source=LAPTOP-6280OKSE; Initial Catalog = CuaHangDienTu; Integrated Security=True; Encrypt=False;"));
             }
             return this.connectionAdmin;
         }
