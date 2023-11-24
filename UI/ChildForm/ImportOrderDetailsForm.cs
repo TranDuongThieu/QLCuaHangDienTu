@@ -19,9 +19,9 @@ namespace CuaHangDienTu.UI.ChildForm
         {
             _flowLayoutPanel = new FlowLayoutPanel();
             _flowLayoutPanel.AutoScroll = true;
-            _flowLayoutPanel.Location = new Point(100, 40);
-            _flowLayoutPanel.Width = 660;
-            _flowLayoutPanel.Height = 400;
+            _flowLayoutPanel.Location = new Point(100, 80);
+            _flowLayoutPanel.Width = 1300;
+            _flowLayoutPanel.Height = 500;
 
             this.Controls.Add(this._flowLayoutPanel);
 
