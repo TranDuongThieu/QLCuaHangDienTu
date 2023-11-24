@@ -73,6 +73,29 @@ namespace CuaHangDienTu.UI.ImportOrder
             productDescriptionLabel.Text = _importOrderDetail.ProductDescription;
             quantityLabel.Text = "Số lượng: " + _importOrderDetail.Quantity.ToString();
             priceLabel.Text = "Giá: " + (_importOrderDetail.Quantity * _importOrderDetail.Price).ToString();
+            try
+            {
+                // Get the file path from the cell
+                string filePath = _importOrderDetail.ProductImageLink;
+
+                // Check if the file exists
+                if (File.Exists(filePath))
+                {
+                    // Load the image from the file
+                    Image img = Image.FromFile(filePath);
+                    pictureBox1.Image = img;
+                }
+                else
+                {
+                    // Handle the case where the file does not exist
+                    pictureBox1.Image = null; // Set a default image or handle the error in a different way
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if necessary
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }

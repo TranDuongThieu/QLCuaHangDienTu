@@ -57,5 +57,32 @@ namespace CuaHangDienTu.UI.Order
         {
             this.deleteButton.Visible = true;
         }
+
+        private void OrderDetailsControl_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the file path from the cell
+                string filePath = _orderDetailsDTO.ProductImagePath;
+
+                // Check if the file exists
+                if (File.Exists(filePath))
+                {
+                    // Load the image from the file
+                    Image img = Image.FromFile(filePath);
+                    pictureBox1.Image = img;
+                }
+                else
+                {
+                    // Handle the case where the file does not exist
+                    pictureBox1.Image = null; // Set a default image or handle the error in a different way
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions if necessary
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 }

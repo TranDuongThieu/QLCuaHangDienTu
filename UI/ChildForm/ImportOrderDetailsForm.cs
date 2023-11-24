@@ -79,6 +79,7 @@ namespace CuaHangDienTu.UI.ChildForm
                                                         int giaSP = reader.GetInt32("DonGia");
                                                         string motaSP = nestedReader.GetString(nestedReader.GetOrdinal("MoTaSP"));
                                                         string tenSP = nestedReader.GetString(nestedReader.GetOrdinal("TenSP"));
+                                                        string hinhAnhSP = nestedReader.GetString("HinhAnhSP");
                                                         ImportOrderDetailDTO orderDetailsDTO = new ImportOrderDetailDTO();
                                                         orderDetailsDTO.ImportOrderId = importOrderId;
                                                         orderDetailsDTO.ProductItemId = maMatHangSP;
@@ -86,6 +87,7 @@ namespace CuaHangDienTu.UI.ChildForm
                                                         orderDetailsDTO.ProductName = tenSP;
                                                         orderDetailsDTO.Quantity = soLuong;
                                                         orderDetailsDTO.Price = giaSP;
+                                                        orderDetailsDTO.ProductImageLink = hinhAnhSP;
                                                         details.Add(orderDetailsDTO);
                                                     }
                                                 }

@@ -117,6 +117,7 @@ namespace CuaHangDienTu.UI.Main
                                 string productName = reader.GetString("TenSP");
                                 string productDescription = reader.GetString("MoTaSP");
                                 int price = reader.GetInt32("Gia");
+                                string imageLink = reader.GetString("HinhAnhSP");
                                 OrderDetailsDTO orderDetails = new OrderDetailsDTO
                                 {
                                     OrderId = orderId,
@@ -124,7 +125,8 @@ namespace CuaHangDienTu.UI.Main
                                     Quantity = quantity,
                                     ProductName = productName,
                                     ProductDescription = productDescription,
-                                    Price = price
+                                    Price = price,
+                                    ProductImagePath = imageLink
                                 };
                                 orderDetailsDTOs.Add(orderDetails);
                             }

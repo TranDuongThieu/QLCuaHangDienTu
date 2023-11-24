@@ -48,7 +48,7 @@
             pictureBox1.Location = new Point(32, 22);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(100, 100);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -157,6 +157,7 @@
             Controls.Add(pictureBox1);
             Name = "OrderDetailsControl";
             Size = new Size(597, 149);
+            Load += OrderDetailsControl_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
