@@ -1,16 +1,16 @@
-﻿
-using CuaHangDienTu.UI.Admin;
+﻿using CuaHangDienTu.UI.Login;
 using CuaHangDienTu.UI.Product;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuaHangDienTu.UI.Main
 {
     public partial class MainForm : Form
     {
-
-        public MainForm()
+        private RealLoginForm _loginFormReference;
+        private OrderForm orderForm;
+        public MainForm(RealLoginForm realLoginForm)
         {
             InitializeComponent();
+            _loginFormReference = realLoginForm;
 
         }
 
@@ -43,11 +43,12 @@ namespace CuaHangDienTu.UI.Main
             ProductView phone = new ProductView("PHONE");
             ProductView tablet = new ProductView("TABLET");
             ProductView laptop = new ProductView("LAPTOP");
+            orderForm = new OrderForm();
 
             tab_phone.Controls.Add(phone);
             tab_tablet.Controls.Add(tablet);
             tab_laptop.Controls.Add(laptop);
-
+            tab_hoadon.Controls.Add(orderForm);
 
 
         }
@@ -67,6 +68,26 @@ namespace CuaHangDienTu.UI.Main
         private void tab_phone_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UserLoginInfomation.Username = "";
+            UserLoginInfomation.Password = "";
+            _loginFormReference.Show();
+        }
+
+        private void orderTabClick(object sender, EventArgs e)
+        {
+            if (GlobalVar.CurrentOrderId != null)
+            {
+                orderForm.UpdateOrderDetails();
+                orderForm.ShowDetails();
+            }
+            else
+            {
+                orderForm.HideDetails();
+            }
         }
     }
 }

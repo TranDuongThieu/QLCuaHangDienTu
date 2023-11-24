@@ -1,11 +1,15 @@
-﻿namespace CuaHangDienTu.UI.Admin
+﻿using CuaHangDienTu.UI.Login;
+
+namespace CuaHangDienTu.UI.Admin
 {
     public partial class AdminForm : Form
     {
-        public AdminForm()
+        private RealLoginForm loginFormReference;
+        public AdminForm(RealLoginForm realLoginForm)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            loginFormReference = realLoginForm;
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -22,6 +26,11 @@
             tabDoanhThu.Controls.Add(admin_QLDoanhThu);
         }
 
-
+        private void AdminForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            UserLoginInfomation.Username = "";
+            UserLoginInfomation.Password = "";
+            loginFormReference.Show();
+        }
     }
 }

@@ -281,7 +281,10 @@ namespace CuaHangDienTu.UI.Admin
 
         private void viewImportOrderDetailsButton_Click(object sender, EventArgs e)
         {
-
+            using (var f = new ImportOrderDetailsForm(_currentImportOrder.ImportOrderId))
+            {
+                f.ShowDialog();
+            }
         }
 
         private string GenerateRandomID(int length)

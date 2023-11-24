@@ -1,4 +1,4 @@
-﻿using CuaHangDienTu.Models;
+using CuaHangDienTu.Models;
 using CuaHangDienTu.UI.Admin;
 using CuaHangDienTu.UI.Main;
 using Microsoft.Data.SqlClient;
@@ -56,13 +56,13 @@ namespace CuaHangDienTu.UI.Login
 
                 if (isAdmin(username))
                 {
-                    AdminForm adminForm = new AdminForm();
+                    AdminForm adminForm = new AdminForm(this);
                     adminForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    MainForm mainForm = new MainForm();
+                    MainForm mainForm = new MainForm(this);
                     mainForm.Show();
                     this.Hide();
                 }

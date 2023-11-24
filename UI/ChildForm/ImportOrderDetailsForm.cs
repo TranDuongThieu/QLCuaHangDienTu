@@ -1,21 +1,21 @@
 ﻿using CuaHangDienTu.Models;
-using CuaHangDienTu.UI.Order;
+using CuaHangDienTu.UI.ImportOrder;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace CuaHangDienTu.UI.ChildForm
 {
-    public partial class OrderDetailsForm : Form
+    public partial class ImportOrderDetailsForm : Form
     {
         private FlowLayoutPanel _flowLayoutPanel;
-        private string _orderId;
-        public OrderDetailsForm(string orderId)
+        private string _importOrderId;
+        public ImportOrderDetailsForm(string importOrderId)
         {
             InitializeComponent();
-            _orderId = orderId;
+            _importOrderId = importOrderId;
         }
 
-        private void OrderDetailsForm_Load(object sender, EventArgs e)
+        private void ImportOrderDetailsForm_Load(object sender, EventArgs e)
         {
             _flowLayoutPanel = new FlowLayoutPanel();
             _flowLayoutPanel.AutoScroll = true;
@@ -25,43 +25,42 @@ namespace CuaHangDienTu.UI.ChildForm
 
             this.Controls.Add(this._flowLayoutPanel);
 
-            List<OrderDetailsDTO> orderDetailsDTOs = new List<OrderDetailsDTO>();
+            List<ImportOrderDetailDTO> orderDetailsDTOs = new List<ImportOrderDetailDTO>();
 
-            orderDetailsDTOs = GetOrderDetailsListOfOrder(_orderId);
+            orderDetailsDTOs = GetImportOrderDetailsListOfOrder(_importOrderId);
 
             _flowLayoutPanel.SuspendLayout();
 
-            foreach (OrderDetailsDTO orderDetailsDTO in orderDetailsDTOs)
+            foreach (ImportOrderDetailDTO importOrderDetailsDTO in orderDetailsDTOs)
             {
-                var orderDetailsControl = new OrderDetailsControl(orderDetailsDTO, false);
+                var orderDetailsControl = new ImportOrderDetailControl(importOrderDetailsDTO, false);
                 // Add the OrderDetailsControl user control to the FlowLayoutPanel control.
                 _flowLayoutPanel.Controls.Add(orderDetailsControl);
             }
 
             _flowLayoutPanel.ResumeLayout();
-
         }
 
-        private List<OrderDetailsDTO> GetOrderDetailsListOfOrder(string orderId)
+        private List<ImportOrderDetailDTO> GetImportOrderDetailsListOfOrder(string importOrderId)
         {
-            List<OrderDetailsDTO> details = new List<OrderDetailsDTO>();
+            List<ImportOrderDetailDTO> details = new List<ImportOrderDetailDTO>();
             try
             {
                 using (DBConnection db = new DBConnection())
                 {
                     using (SqlConnection con = db.GetConnection())
                     {
-                        using (SqlCommand command = new SqlCommand("GetChiTietDonHang", con))
+                        using (SqlCommand command = new SqlCommand("GetChiTietDonNhapHang", con))
                         {
                             command.CommandType = CommandType.StoredProcedure;
-                            command.Parameters.AddWithValue("@MaDH", orderId);
+                            command.Parameters.AddWithValue("@MaDNN", _importOrderId);
 
                             db.OpenConnection();
                             using (SqlDataReader reader = command.ExecuteReader())
                             {
                                 while (reader.Read())
                                 {
-                                    string maDH = reader["MaDH"].ToString();
+                                    string maDNH = reader["MaDNN"].ToString();
                                     string maMatHangSP = reader["MaMatHangSP"].ToString();
                                     int soLuong = reader.GetInt32(reader.GetOrdinal("SoLuong"));
                                     using (DBConnection db2 = new DBConnection())
@@ -77,18 +76,18 @@ namespace CuaHangDienTu.UI.ChildForm
                                                 {
                                                     if (nestedReader.Read())
                                                     {
-                                                        int giaSP = nestedReader.GetInt32(nestedReader.GetOrdinal("Gia"));
+                                                        int giaSP = reader.GetInt32("DonGia");
                                                         string motaSP = nestedReader.GetString(nestedReader.GetOrdinal("MoTaSP"));
                                                         string tenSP = nestedReader.GetString(nestedReader.GetOrdinal("TenSP"));
                                                         string hinhAnhSP = nestedReader.GetString("HinhAnhSP");
-                                                        OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
-                                                        orderDetailsDTO.OrderId = orderId;
+                                                        ImportOrderDetailDTO orderDetailsDTO = new ImportOrderDetailDTO();
+                                                        orderDetailsDTO.ImportOrderId = importOrderId;
                                                         orderDetailsDTO.ProductItemId = maMatHangSP;
                                                         orderDetailsDTO.ProductDescription = motaSP;
                                                         orderDetailsDTO.ProductName = tenSP;
                                                         orderDetailsDTO.Quantity = soLuong;
                                                         orderDetailsDTO.Price = giaSP;
-                                                        orderDetailsDTO.ProductImagePath = hinhAnhSP;
+                                                        orderDetailsDTO.ProductImageLink = hinhAnhSP;
                                                         details.Add(orderDetailsDTO);
                                                     }
                                                 }
