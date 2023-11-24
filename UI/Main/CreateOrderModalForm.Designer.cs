@@ -34,6 +34,12 @@
             departmentComboBox = new ComboBox();
             confirmButton = new Button();
             cancelButton = new Button();
+            newCustomerNameTextBox = new TextBox();
+            newCustomerPhoneTextBox = new TextBox();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            createNewCustomerButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -96,11 +102,73 @@
             cancelButton.UseVisualStyleBackColor = false;
             cancelButton.Click += cancelButton_Click;
             // 
+            // newCustomerNameTextBox
+            // 
+            newCustomerNameTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            newCustomerNameTextBox.Location = new Point(451, 76);
+            newCustomerNameTextBox.Name = "newCustomerNameTextBox";
+            newCustomerNameTextBox.Size = new Size(243, 29);
+            newCustomerNameTextBox.TabIndex = 6;
+            // 
+            // newCustomerPhoneTextBox
+            // 
+            newCustomerPhoneTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            newCustomerPhoneTextBox.Location = new Point(451, 129);
+            newCustomerPhoneTextBox.Name = "newCustomerPhoneTextBox";
+            newCustomerPhoneTextBox.Size = new Size(243, 29);
+            newCustomerPhoneTextBox.TabIndex = 7;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(451, 25);
+            label3.Name = "label3";
+            label3.Size = new Size(165, 21);
+            label3.TabIndex = 8;
+            label3.Text = "Thêm khách hàng mới";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(369, 84);
+            label4.Name = "label4";
+            label4.Size = new Size(76, 21);
+            label4.TabIndex = 9;
+            label4.Text = "Họ và tên";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(344, 137);
+            label5.Name = "label5";
+            label5.Size = new Size(101, 21);
+            label5.TabIndex = 10;
+            label5.Text = "Số điện thoại";
+            // 
+            // createNewCustomerButton
+            // 
+            createNewCustomerButton.Location = new Point(451, 181);
+            createNewCustomerButton.Name = "createNewCustomerButton";
+            createNewCustomerButton.Size = new Size(243, 23);
+            createNewCustomerButton.TabIndex = 11;
+            createNewCustomerButton.Text = "Thêm khách hàng mới";
+            createNewCustomerButton.UseVisualStyleBackColor = true;
+            createNewCustomerButton.Click += createNewCustomerButton_Click;
+            // 
             // CreateOrderModalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(323, 246);
+            ClientSize = new Size(743, 246);
+            Controls.Add(createNewCustomerButton);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(newCustomerPhoneTextBox);
+            Controls.Add(newCustomerNameTextBox);
             Controls.Add(cancelButton);
             Controls.Add(confirmButton);
             Controls.Add(departmentComboBox);
@@ -122,5 +190,11 @@
         private ComboBox departmentComboBox;
         private Button confirmButton;
         private Button cancelButton;
+        private TextBox newCustomerNameTextBox;
+        private TextBox newCustomerPhoneTextBox;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Button createNewCustomerButton;
     }
 }

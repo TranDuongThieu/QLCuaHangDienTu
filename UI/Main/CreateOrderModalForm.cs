@@ -244,5 +244,48 @@ namespace CuaHangDienTu.UI.Main
             CreateOrder();
             DialogResult = DialogResult.OK;
         }
+
+        private void createNewCustomerButton_Click(object sender, EventArgs e)
+        {
+            string randomID = "KH" + GenerateRandomID(8);
+            string customerName = newCustomerNameTextBox.Text;
+            string customerPhone = newCustomerPhoneTextBox.Text;
+            try
+            {
+                using (DBConnection db = new DBConnection())
+                {
+                    using (SqlConnection con = db.GetConnection())
+                    {
+                        using (SqlCommand command = new SqlCommand("spThemKH", con))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+
+                            // Add parameters
+                            command.Parameters.Add("@MaKH", SqlDbType.VarChar, 10).Value = randomID;
+                            command.Parameters.Add("@HoTenKH", SqlDbType.NVarChar, 50).Value = customerName;
+                            command.Parameters.Add("@SoDienThoai", SqlDbType.VarChar, 10).Value = customerPhone;
+
+                            db.OpenConnection();
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Customer added successfully!");
+                            customerComboBox.Items.Clear();
+                            customers = GetCustomers();
+                            foreach (var c in customers)
+                            {
+                                customerComboBox.Items.Add(c);
+                            }
+                            customerComboBox.SelectedItem = null;
+                            customerComboBox.SelectedIndex = -1;
+                            customerComboBox.Text = "--Chọn khách hàng--";
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Lỗi khi thêm khách hàng: " + ex.Message);
+            }
+        }
     }
 }
